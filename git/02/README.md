@@ -1,7 +1,7 @@
 # devops-netology
 1. Это новая строка для выполнения домашнего задания.
 
-2. 
+2. !
 
 3. Скриншоты
 ![1](https://github.com/Reqroot-pro/devops-netology/blob/main/git/02/images/1.png)
