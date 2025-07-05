@@ -141,7 +141,7 @@ echo "====="
 Если всё было сделано правильно, то на странице `network` в GitHub, находящейся по адресу 
 `https://github.com/ВАШ_ЛОГИН/ВАШ_РЕПОЗИТОРИЙ/network`, будет примерно такая схема:
   
-![Созданы обе ветки]([img/01.png](https://github.com/netology-code/sysadm-homeworks/raw/devsys10/02-git-03-branching/img/01.png))
+![Созданы обе ветки](https://github.com/netology-code/sysadm-homeworks/raw/devsys10/02-git-03-branching/img/01.png)
 
 #### Merge
 
