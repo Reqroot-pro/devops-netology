@@ -54,29 +54,47 @@
 
 
 
-### Ответ на вопрос 1:
-Команда: git log --pretty=format:"%H %s" | grep ^aefea
-Полный хеш коммита: aefead2207ef7e2aa5dc81a34aedf0cad4c32545
-Комментарий коммита: Update CHANGELOG.md
+# Ответы на вопросы
 
-### Ответы на вопросы 2:
+## Ответ на вопрос 1
 
-Какому тегу соответствует коммит 85024d3?
-Команда: git describe --contains 85024d3
-Соответствующий тег: v0.12.23
+Команда:
+git log --pretty=format:"%H %s" | grep ^aefea
 
+Полный хеш коммита:
+aefead2207ef7e2aa5dc81a34aedf0cad4c32545
 
-Сколько родителей у коммита b8d720? Напишите их хеши.
-Команда: git show -s --pretty=%P b8d720
-Число родителей: 2
+Комментарий коммита:
+Update CHANGELOG.md
+
+## Ответы на вопросы 2
+
+### Какому тегу соответствует коммит 85024d3?
+
+Команда:
+git describe --contains 85024d3
+
+Соответствующий тег:
+v0.12.23
+
+### Сколько родителей у коммита b8d720? Напишите их хеши.
+
+Команда:
+git show -s --pretty=%P b8d720
+
+Число родителей:
+2
+
 Хеши родителей:
 56cd7859e05c36c06b56d013b55a252d0bb7e158
 9ea88f22fc6269854151c571162c5bcf958bee2b
 
+### Перечислите хеши и комментарии всех коммитов между тегами v0.12.23 и v0.12.24.
 
-Перечислите хеши и комментарии всех коммитов, которые были сделаны между тегами v0.12.23 и v0.12.24.
-Команда: git log v0.12.23..v0.12.24 --pretty=format:"%h %s"
-Коммиты между тегами v0.12.23 и v0.12.24:
+Команда:
+git log v0.12.23..v0.12.24 --pretty=format:"%h %s"
+
+Коммиты:
 33ff1c03bb v0.12.24
 b14b74c493 [Website] vmc provider links
 3f235065b9 Update CHANGELOG.md
@@ -88,19 +106,25 @@ d5f9411f51 command: Fix bug when using terraform login on Windows
 dd01a35078 Update CHANGELOG.md
 225466bc3e Cleanup after v0.12.23 release
 
+### Найдите коммит, в котором была создана функция func providerSource.
 
-Найдите коммит, в котором была создана функция func providerSource, её определение в коде выглядит так: func providerSource(...) (вместо троеточия перечислены аргументы).
-Команда: git grep -l 'func providerSource'
-Команда: git log -p provider_source.go | grep -A 10 'func providerSource'
-Коммит с функцией: 
+Команды:
+git grep -l 'func providerSource'
+git log -p provider_source.go | grep -A 10 'func providerSource'
+
+Коммит:
 commit 8c928e83589d90a031f811fae52a81be7153e82f
 Author: Martin Atkins <mart@degeneration.co.uk>
---
+
+Код функции:
 +func providerSource(services *disco.Disco) getproviders.Source {
 
+### Найдите все коммиты, в которых изменялась функция globalPluginDirs.
 
-Найдите все коммиты, в которых была изменена функция globalPluginDirs.
-Команда: git log -S 'globalPluginDirs' --oneline
+Команда:
+git log -S 'globalPluginDirs' --oneline
+
+Список коммитов:
 7c4aeac5f3 stacks: load credentials from config file on startup (#35952)
 65c4ba7363 Remove terraform binary
 125eb51dc4 Remove accidentally-committed binary
@@ -110,9 +134,10 @@ Author: Martin Atkins <mart@degeneration.co.uk>
 c0b1761096 prevent log output during init
 8364383c35 Push plugin discovery down into command package
 
+### Кто автор функции synchronizedWriters?
 
+Команда:
+git log -S 'synchronizedWriters' --pretty="format:%an" -1
 
-Кто автор функции synchronizedWriters?
-Команда: git log -S 'synchronizedWriters' --pretty="format:%an" -1
+Автор:
 James Bardin
-
