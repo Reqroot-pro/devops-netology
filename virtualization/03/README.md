@@ -1,5 +1,5 @@
 
-# Домашнее задание к занятию 4 «Оркестрация группой Docker контейнеров на примере Docker Compose» - `Дамир Гайнуллин`
+# Домашнее задание к занятию 3 «Оркестрация группой Docker контейнеров на примере Docker Compose» - `Дамир Гайнуллин`
 
 ### Инструкция к выполению
 
@@ -126,22 +126,39 @@ services:
 
 ### Решение
 
-1. https://hub.docker.com/repository/docker/reqroot/custom-nginx/general
+## Задача 1 
+https://hub.docker.com/repository/docker/reqroot/custom-nginx/general
 
-2. ссылка на  скриншот
+## Задача 2 
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/1.png)
 
-3. ссылка на  скриншот
+## Задача 3
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/2.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/3.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/4.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/5.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/6.png)
 
 ss -tlpn | grep 127.0.0.1:8080: Показывает, что порт 8080 на хосте по-прежнему прослушивается процессом docker-proxy. Это означает, что Docker по-прежнему пытается перенаправлять трафик с 127.0.0.1:8080 на порт 80 внутри контейнера.
 docker port custom-nginx-t2: Подтверждает, что маппинг контейнера по-прежнему 80/tcp -> 127.0.0.1:8080.
-curl http://127.0.0.1:8080: Запрос завершается ошибкой, потому что docker-proxy перенаправляет трафик на порт 80 внутри контейнера, но nginx внутри контейнера теперь слушает порт 81. На порту 80 внутри контейнера никто не отвечает, поэтому соединение сбрасывается.
-Суть проблемы: Конфигурация Docker (маппинг портов) и конфигурация Nginx внутри контейнера стали несогласованными. Docker перенаправляет на порт 80, а Nginx слушает порт 81.
+curl http://127.0.0.1:8080: Запрос завершается ошибкой, потому что docker-proxy перенаправляет трафик на порт 80 внутри контейнера, но nginx внутри контейнера теперь слушает порт 81. 
+На порту 80 внутри контейнера никто не отвечает, поэтому соединение сбрасывается.
+Конфигурация Docker и конфигурация Nginx внутри контейнера стали несогласованными. Docker перенаправляет на порт 80, а Nginx слушает порт 81.
 
 
-4. ссылка на  скриншот
+## Задача 4
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/7.png)
 
 
-5. Согласно документации Docker Compose (The Compose file ), Compose ищет файлы проекта в следующем порядке по умолчанию (в текущей директории):
+## Задача 5
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/8.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/9.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/10.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/11.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/12.png)
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/13.png)
+
+Согласно документации Docker Compose (The Compose file ), Compose ищет файлы проекта в следующем порядке по умолчанию (в текущей директории):
 
 compose.yaml
 compose.yml
