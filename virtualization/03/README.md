@@ -151,6 +151,7 @@ curl http://127.0.0.1:8080: Запрос завершается ошибкой, 
 
 
 ## Задача 5
+ ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/8.png)
  ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/9.png)
  ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/10.png)
  ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/03/images/11.png)
