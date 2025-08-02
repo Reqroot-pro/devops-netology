@@ -111,7 +111,7 @@
 5. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/7.png)
 
-`terraform`
+```terraform
 resource "docker_image" "nginx"{
   name         = "nginx:latest"
   keep_locally = true
@@ -126,7 +126,7 @@ resource "docker_container" "nginx" {
     external = 9090
   }
 }
-`terraform`
+```
 
 6. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/8.png)
