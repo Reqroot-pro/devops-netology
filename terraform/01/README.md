@@ -103,11 +103,11 @@
 
 4. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/6.png)
-
+```
 **Первая ошибка**, ресурс без имени. Terraform требует, чтобы у каждого resource были 2 метки. Добавляем "nginx"
 **Вторая ошибка** Terraform не разрешает имена ресурсов, начинающиеся с цифры. Имя должно начинаться с буквы или подчёркивания. Исправляем на nginx
 **Третья ошибка** random_string_FAKE не существует — такого ресурса не объявлено, удаляем строчку  "_FAKE". resulT написано с ошибкой — правильно result
-
+```
 5. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/7.png)
 
@@ -128,12 +128,12 @@ resource "docker_container" "nginx" {
 
 6. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/8.png)
--auto-approve автоматически подтверждает выполнение плана — Terraform не спросит, согласны ли вы на изменения.
+```-auto-approve автоматически подтверждает выполнение плана — Terraform не спросит, согласны ли вы на изменения.
 
 Это опасно, т.к. можно случайно  удалить\внести изменения без подтверждения.
 
 Полезен в CI/CD, скриптах и автодеплое, но не рекомендован для ручного использования в продакшене.
-
+```
 
 7. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/9.png)
