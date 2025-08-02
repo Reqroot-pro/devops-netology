@@ -96,3 +96,29 @@ See 'snap info docker' for additional versions.
 ## Задача 7 (***)
 Запустите ваше python-приложение с помощью runC, не используя docker или containerd.  
 Предоставьте скриншоты  действий .
+
+
+##№ Решение
+
+## Задача 0
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/1.png)
+
+## Задача 1
+https://github.com/Reqroot-pro/shvirtd-example-python/blob/main/Dockerfile.python
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/2.png)
+
+## Задача 3
+https://github.com/Reqroot-pro/shvirtd-example-python/blob/main/compose.yaml
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/3.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/4.png)
+
+## Задача 4
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/5.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/6.png)
+
+## Задача 6
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/7.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/8.png)
+
+## Задача 6.1
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/9.png)
