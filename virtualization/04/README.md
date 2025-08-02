@@ -113,6 +113,7 @@ https://github.com/Reqroot-pro/shvirtd-example-python/blob/main/compose.yaml
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/4.png)
 
 ## Задача 4
+https://github.com/Reqroot-pro/shvirtd-example-python/blob/main/deploy.sh
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/5.png)
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/virtualization/04/images/6.png)
 
