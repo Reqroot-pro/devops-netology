@@ -110,7 +110,7 @@
 ```
 5. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/7.png)
-
+```
 resource "docker_image" "nginx"{
   name         = "nginx:latest"
   keep_locally = true
@@ -125,7 +125,7 @@ resource "docker_container" "nginx" {
     external = 9090
   }
 }
-
+```
 6. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/8.png)
 ```-auto-approve автоматически подтверждает выполнение плана — Terraform не спросит, согласны ли вы на изменения.
@@ -141,8 +141,8 @@ resource "docker_container" "nginx" {
 
 8. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/10.png)
-Ключ keep_locally = true говорит Terraform оставить образ на месте после удаления контейнера.
-
+```Ключ keep_locally = true говорит Terraform оставить образ на месте после удаления контейнера.
+```
 
 9. 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/01/images/11.png)
