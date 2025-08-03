@@ -12,5 +12,5 @@ provider "yandex" {
   cloud_id                 = var.cloud_id
   folder_id                = var.folder_id
   zone                     = var.default_zone
-  service_account_key_file = file("~/keys/key.json")
+  service_account_key_file = file("~/keys/authorized_key_terraform.json")
 }

@@ -1,4 +1,4 @@
-# Первая ВМ — WEB
+/* # Первая ВМ — WEB
 
 variable "vm_web_name" {
   type    = string
@@ -77,3 +77,4 @@ variable "vm_db_preemptible" {
   default = true
 }
 
+ */
