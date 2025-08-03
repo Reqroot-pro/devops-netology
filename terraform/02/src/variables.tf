@@ -36,3 +36,9 @@ variable "vms_ssh_root_key" {
   default     = "<your_ssh_ed25519_key>"
   description = "ssh-keygen -t ed25519"
 }
+
+variable "vms_ssh_public_root_key" {
+  type        = string
+  default     = "<your_ssh_ed25519_key.pub>"
+  description = "Публичный SSH-ключ"
+}
