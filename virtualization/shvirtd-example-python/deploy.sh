@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-REPO_URL="https://github.com/Reqroot-pro/devops-netology/tree/main/virtualization/shvirtd-example-python"
+REPO_URL="https://github.com/Reqroot-pro/shvirtd-example-python.git"
 TARGET_DIR="/opt/shvirtd-example-python"
 
 if [ -d "$TARGET_DIR" ]; then
