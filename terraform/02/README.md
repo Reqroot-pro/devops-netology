@@ -211,3 +211,19 @@ core_fraction = 5
 ## Задание 2
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/02/images/3.png)
+
+## Задание 3
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/02/images/4.png)
+
+## Задание 4
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/02/images/5.png)
+
+## Задание 5
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/02/images/6.png)
+
+## Задание 6
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/02/images/7.png)
