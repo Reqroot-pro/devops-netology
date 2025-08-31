@@ -189,5 +189,27 @@ ${i["name"]} ansible_host=${i["network_interface"][0]["nat_ip_address"] platform
 На доработку работу отправят, если:
 
 * задание выполнено частично или не выполнено вообще,
-* в логике выполнения заданий есть противоречия и существенные недостатки. 
+* в логике выполнения заданий есть противоречия и существенные недостатки.
+
+
+
+### Решение
+
+## Задание 1
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/03/images/1.png)
+
+## Задание 2
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/03/images/2.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/03/images/2.1.png)
+
+## Задание 3
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/03/images/3.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/03/images/3.1.png)
+
+## Задание 4
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/03/images/4.png)
 
