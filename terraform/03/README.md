@@ -193,6 +193,7 @@ ${i["name"]} ansible_host=${i["network_interface"][0]["nat_ip_address"] platform
 
 
 
+
 ### Решение
 
 ## Задание 1
