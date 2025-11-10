@@ -1,0 +1,4 @@
+public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxec8dbkHtU8RwGq9SAm+1U0n1GbQvtavv83lsp1CsRajPpXKk08kA3HP/nVqIWQK1kV0wVWxTmQUG3nqUrUx/IVqwM2OGlfRKXjny8i6X6AZPTSu6hikVd4872OMHdCATqiUc5j0yBdWTxBCk+p4lOmY6gYQ4+W78UEmLEW4qxt9Xuud9nxOV4S5pKytYDzmKh/mRvGKElYzbTJJl9KBqL8V9r4yab/X4dcys3eHOPzWa7pGYmINbpiFGEjZix+rap0T/PoXt1Fjd12G0YvmBjZ6OBic7a+D+HLA2yzXJUAxru/FNy9MP7Q6AcjORpQIYebqBjuUt/Iv+xD3fxYpz"
+token  =  "y0_AgAAAABwxg1xAATuwQAAAAEX-ExKAACKDzGsj0hIKKvyGu4biy6YZBaE0g"
+cloud_id  = "b1gn1dorn70t254b61dk"
+folder_id = "b1g37fp3h2bmj9dcj58t"
