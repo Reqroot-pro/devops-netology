@@ -160,9 +160,25 @@ terraform console: >nonsensitive(data.vault_generic_secret.vault_example.data.<�
 ## Задание 1
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/1.png)
+
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/2.png)
+
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/3.png)
+
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/4.png)
+
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/5.png)
 
 ## Задание 2
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/6.png)
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/7.png)
+
+## Задание 3
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/8.png)
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/9.png)
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/10.png)
