@@ -174,19 +174,19 @@ variable "in_the_end_there_can_be_only_one" {
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/01.png)
 
-Ошибки	tflint
-terraform_required_providers	Отсутствует ограничение версии для провайдера yandex	providers.tf
-terraform_unused_declarations	Переменные объявлены, но не используются: vms_ssh_root_key, vm_web_name, vm_db_name	variables.tf
-terraform_required_providers	Отсутствует ограничение версии для провайдера template	main.tf
-terraform_module_pinned_source	Модули используют ссылку на ветку main вместо конкретного тега или коммита	main.tf
+# Ошибки	tflint
+* terraform_required_providers	Отсутствует ограничение версии для провайдера yandex	providers.tf
+* terraform_unused_declarations	Переменные объявлены, но не используются: vms_ssh_root_key, vm_web_name, vm_db_name	variables.tf
+* terraform_required_providers	Отсутствует ограничение версии для провайдера template	main.tf
+* terraform_module_pinned_source	Модули используют ссылку на ветку main вместо конкретного тега или коммита	main.tf
 
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/02.png)
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/03.png)
 
-Ошибки chekov
-CKV_TF_1	Нужно использовать commit hash для Terraform модуля	marketing_vm /vms/main.tf, 18–33 и analytics_vm	/vms/main.tf, 36–51
-CKV_TF_2	Нужно использовать тег с версией для Terraform модуля	marketing_vm	/vms/main.tf, 18–33 и analytics_vm	/vms/main.tf, 36–51
+# Ошибки chekov
+* CKV_TF_1	Нужно использовать commit hash для Terraform модуля	marketing_vm /vms/main.tf, 18–33 и analytics_vm	/vms/main.tf, 36–51
+* CKV_TF_2	Нужно использовать тег с версией для Terraform модуля	marketing_vm	/vms/main.tf, 18–33 и analytics_vm	/vms/main.tf, 36–51
 
 ## Задание 2
 
