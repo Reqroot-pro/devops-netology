@@ -205,7 +205,7 @@ variable "in_the_end_there_can_be_only_one" {
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/10.png)
 
-https://github.com/Reqroot-pro/devops-netology/pull/3
+![ссылка на PR] (https://github.com/Reqroot-pro/devops-netology/pull/3)
 
 ## Задание 4
 
