@@ -172,7 +172,7 @@ variable "in_the_end_there_can_be_only_one" {
 
 ## Задание 1
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/01.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/01.png)
 
 Ошибки	tflint
 terraform_required_providers	Отсутствует ограничение версии для провайдера yandex	providers.tf
@@ -181,8 +181,8 @@ terraform_required_providers	Отсутствует ограничение ве�
 terraform_module_pinned_source	Модули используют ссылку на ветку main вместо конкретного тега или коммита	main.tf
 
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/02.png)
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/03.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/02.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/03.png)
 
 Ошибки chekov
 CKV_TF_1	Нужно использовать commit hash для Terraform модуля	marketing_vm /vms/main.tf, 18–33 и analytics_vm	/vms/main.tf, 36–51
@@ -190,23 +190,23 @@ CKV_TF_2	Нужно использовать тег с версией для Ter
 
 ## Задание 2
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/04.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/04.png)
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/05.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/05.png)
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/06.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/06.png)
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/07.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/07.png)
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/08.png)
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/09.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/08.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/09.png)
 
 ## Задание 3
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/10.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/10.png)
 
 https://github.com/Reqroot-pro/devops-netology/pull/3
 
 ## Задание 4
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/04/images/11.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/05/images/11.png)
