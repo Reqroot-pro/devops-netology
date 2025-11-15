@@ -19,4 +19,3 @@ Hello from Flask! DB connected
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/final-project/images/01.png)
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/terraform/final-project/images/02.png)
-

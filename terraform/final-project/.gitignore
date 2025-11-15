@@ -1,2 +1,4 @@
 sa-key.json
 ssh-key-asus-laptop*
+terraform/final-project/.terraform/
+terraform/final-project/terraform/.terraform.lock.hcl
