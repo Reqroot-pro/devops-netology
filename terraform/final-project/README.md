@@ -1,4 +1,4 @@
-# Yandex Cloud Final Project
+### Yandex Cloud Final Project
 
 ## Выполнено
 - Инфраструктура: VPC, подсеть, группа безопасности (22/80/443)
@@ -14,6 +14,7 @@
 ```bash
 $ curl http://62.84.125.50
 Hello from Flask! DB connected
+```
 
 ## Скрины
 
