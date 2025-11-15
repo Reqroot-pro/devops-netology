@@ -1,0 +1,15 @@
+ ## Выполнить на ВМ
+
+cat > docker-compose.yml <<EOF
+services:
+  web:
+    image: cr.yandex/crpeouidpgmm8lfi9d8n/app-repo/flask-app:latest
+    ports:
+      - "80:80"
+    environment:
+      - DB_HOST=rc1a-sg7tn3ki174d62de.mdb.yandexcloud.net
+      - DB_USER=appuser
+      - DB_PASSWORD=appuser_password
+      - DB_NAME=appdb
+    restart: always
+EOF
