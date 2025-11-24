@@ -91,7 +91,7 @@ ansible-playbook site.yml -i inventory.yml --tags vector
 
 ## Скрины
 
-![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/tree/main/ansible/01/images/01.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/01/images/01.png)
 
 
 ## Tag git
