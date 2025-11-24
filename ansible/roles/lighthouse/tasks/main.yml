@@ -1,0 +1,56 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Ensure Lighthouse directory exists
+  ansible.builtin.file:
+    path: /var/www/lighthouse
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Clone Lighthouse from GitHub (idempotent)
+  ansible.builtin.git:
+    repo: "https://github.com/VKCOM/lighthouse.git"
+    dest: "/var/www/lighthouse"
+    version: "master"
+    depth: 1
+    update: true
+    force: true
+  register: lighthouse_clone
+  notify:
+    - Fix Lighthouse ownership
+
+- name: Deploy nginx config
+  ansible.builtin.template:
+    src: nginx_lighthouse.conf.j2
+    dest: /etc/nginx/sites-available/lighthouse.conf
+    mode: '0644'
+  notify: Reload Nginx
+
+- name: Enable LightHouse nginx site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/lighthouse.conf
+    dest: /etc/nginx/sites-enabled/lighthouse.conf
+    state: link
+  notify: Reload Nginx
+
+- name: Disable default nginx site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Reload Nginx
+
+- name: Ensure Nginx running
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: true
+    state: started

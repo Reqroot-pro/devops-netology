@@ -1,0 +1,29 @@
+---
+- name: Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+    state: present
+
+- name: Get system architecture (e.g., amd64, arm64)
+  ansible.builtin.command: dpkg --print-architecture
+  register: vector_arch
+  changed_when: false
+
+- name: Download Vector .deb package from official APT repo
+  ansible.builtin.get_url:
+    url: "https://apt.vector.dev/pool/v/ve/vector_0.51.1-1_{{ vector_arch.stdout }}.deb"
+    dest: "/tmp/vector_0.51.1-1_{{ vector_arch.stdout }}.deb"
+    mode: '0644'
+
+- name: Install Vector via dpkg
+  ansible.builtin.apt:
+    deb: "/tmp/vector_0.51.1-1_{{ vector_arch.stdout }}.deb"
+
+- name: Enable and start Vector
+  ansible.builtin.systemd:
+    name: vector
+    enabled: true
+    state: started
+    daemon_reload: true

@@ -1,0 +1,56 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+
+- name: Check if ClickHouse key already exists
+  ansible.builtin.stat:
+    path: /usr/share/keyrings/clickhouse-keyring.gpg
+  register: clickhouse_key
+
+- name: Install ClickHouse GPG key
+  ansible.builtin.get_url:
+    url: https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key
+    dest: /usr/share/keyrings/clickhouse-keyring.gpg
+    mode: "0644"
+  when: not clickhouse_key.stat.exists
+  notify: Convert ClickHouse key to gpg format
+
+- name: Detect system architecture
+  ansible.builtin.command: dpkg --print-architecture
+  register: clickhouse_arch
+  changed_when: false
+
+- name: Add ClickHouse repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/clickhouse-keyring.gpg arch={{ clickhouse_arch.stdout }}] https://packages.clickhouse.com/deb stable main"
+    filename: clickhouse
+    state: present
+
+- name: Update apt cache for ClickHouse repo
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install ClickHouse server and client
+  ansible.builtin.apt:
+    name:
+      - clickhouse-server
+      - clickhouse-client
+    state: present
+
+- name: Ensure ClickHouse is started and enabled
+  ansible.builtin.systemd:
+    name: clickhouse-server
+    enabled: true
+    state: started

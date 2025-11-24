@@ -1,0 +1,33 @@
+# 🔐 Sensitive keys
+sa-key.json
+ssh-key-*
+*.pem
+*.key
+
+# 🔑 Ansible
+.ansible/
+*.retry
+
+# 🧱 Terraform local state and cache
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.tfvars.json
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# 👨‍💻 IDE and OS trash
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Ansible inventory with sensitive data (если используется)
+inventory.yml
+inventory/*

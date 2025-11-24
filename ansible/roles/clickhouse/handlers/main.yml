@@ -1,0 +1,7 @@
+---
+- name: Convert ClickHouse key to gpg format
+  ansible.builtin.command:
+    cmd: gpg --dearmor /usr/share/keyrings/clickhouse-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/clickhouse-keyring.gpg
+  changed_when: false

@@ -1,0 +1,12 @@
+---
+- name: Reload Nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: reloaded
+
+- name: Fix Lighthouse ownership
+  ansible.builtin.file:
+    path: /var/www/lighthouse
+    owner: www-data
+    group: www-data
+    recurse: true
