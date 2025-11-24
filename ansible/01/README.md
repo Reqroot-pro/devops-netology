@@ -77,7 +77,7 @@
 
 ## Использование
 
-```bash
+
 # Выполнить весь playbook
 ansible-playbook site.yml -i inventory.yml
 
@@ -85,8 +85,6 @@ ansible-playbook site.yml -i inventory.yml
 ansible-playbook site.yml -i inventory.yml --tags clickhouse
 ansible-playbook site.yml -i inventory.yml --tags lighthouse
 ansible-playbook site.yml -i inventory.yml --tags vector
-
-
 
 
 ## Скрины
