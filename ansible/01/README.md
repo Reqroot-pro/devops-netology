@@ -85,3 +85,14 @@ ansible-playbook site.yml -i inventory.yml
 ansible-playbook site.yml -i inventory.yml --tags clickhouse
 ansible-playbook site.yml -i inventory.yml --tags lighthouse
 ansible-playbook site.yml -i inventory.yml --tags vector
+
+
+
+
+## Скрины
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/01/images/01.png)
+
+
+## Tag git
+https://github.com/Reqroot-pro/devops-netology/releases/tag/08-ansible-03-yandex
