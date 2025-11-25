@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for lighthouse-role
+---
+lighthouse_user: www-data
+lighthouse_group: www-data
+lighthouse_dir: /var/www/lighthouse
+lighthouse_repo: "https://github.com/VKCOM/lighthouse.git"
+lighthouse_version: "master"
+nginx_conf_src: nginx_lighthouse.conf.j2
+nginx_conf_dest: /etc/nginx/sites-available/lighthouse.conf
+nginx_service_name: nginx

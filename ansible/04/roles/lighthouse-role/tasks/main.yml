@@ -1,0 +1,62 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for lighthouse-role
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: "{{ nginx_service_name }}"
+    state: present
+
+- name: Ensure Lighthouse directory exists
+  ansible.builtin.file:
+    path: "{{ lighthouse_dir }}"
+    state: directory
+    owner: "{{ lighthouse_user }}"
+    group: "{{ lighthouse_group }}"
+    mode: '0755'
+
+- name: Clone Lighthouse from GitHub (idempotent)
+  ansible.builtin.git:
+    repo: "{{ lighthouse_repo }}"
+    dest: "{{ lighthouse_dir }}"
+    version: "{{ lighthouse_version }}"
+    depth: 1
+    update: true
+    force: true
+  register: lighthouse_clone
+  notify:
+    - Fix Lighthouse ownership
+
+- name: Deploy nginx config
+  ansible.builtin.template:
+    src: "{{ nginx_conf_src }}"
+    dest: "{{ nginx_conf_dest }}"
+    mode: '0644'
+  notify:
+    - Reload Nginx
+
+- name: Enable LightHouse nginx site
+  ansible.builtin.file:
+    src: "{{ nginx_conf_dest }}"
+    dest: /etc/nginx/sites-enabled/lighthouse.conf
+    state: link
+  notify:
+    - Reload Nginx
+
+- name: Disable default nginx site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify:
+    - Reload Nginx
+
+- name: Ensure Nginx running
+  ansible.builtin.systemd:
+    name: "{{ nginx_service_name }}"
+    enabled: true
+    state: started
