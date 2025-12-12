@@ -1,0 +1,28 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for vector-role
+---
+- name: Install prerequisites
+  ansible.builtin.apt:
+    name: "{{ vector_prerequisites }}"
+    state: present
+
+- name: Get system architecture
+  ansible.builtin.command: dpkg --print-architecture
+  register: vector_arch
+  changed_when: false
+
+- name: Download Vector .deb package
+  ansible.builtin.get_url:
+    url: "https://apt.vector.dev/pool/v/ve/vector_{{ vector_version }}_{{ vector_arch.stdout }}.deb"
+    dest: "/tmp/vector_{{ vector_version }}_{{ vector_arch.stdout }}.deb"
+
+- name: Install Vector via dpkg
+  ansible.builtin.apt:
+    deb: "/tmp/vector_{{ vector_version }}_{{ vector_arch.stdout }}.deb"
+
+- name: Enable and start Vector
+  ansible.builtin.systemd:
+    name: vector
+    enabled: true
+    state: started
