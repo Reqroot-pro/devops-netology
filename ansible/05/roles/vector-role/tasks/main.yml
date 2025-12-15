@@ -1,28 +1,97 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for vector-role
----
-- name: Install prerequisites
-  ansible.builtin.apt:
-    name: "{{ vector_prerequisites }}"
-    state: present
+- name: Handle Debian/Ubuntu
+  when: ansible_facts['os_family'] == "Debian"
+  block:
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name: "{{ vector_prerequisites | default(['curl', 'gnupg']) }}"
+        state: present
+        update_cache: true
 
-- name: Get system architecture
-  ansible.builtin.command: dpkg --print-architecture
-  register: vector_arch
-  changed_when: false
+    - name: Get system architecture
+      ansible.builtin.command: dpkg --print-architecture
+      register: vector_arch_result
+      changed_when: false
 
-- name: Download Vector .deb package
-  ansible.builtin.get_url:
-    url: "https://apt.vector.dev/pool/v/ve/vector_{{ vector_version }}_{{ vector_arch.stdout }}.deb"
-    dest: "/tmp/vector_{{ vector_version }}_{{ vector_arch.stdout }}.deb"
+    - name: Set architecture fact
+      ansible.builtin.set_fact:
+        vector_arch_norm: "{{ vector_arch_result.stdout }}"
 
-- name: Install Vector via dpkg
-  ansible.builtin.apt:
-    deb: "/tmp/vector_{{ vector_version }}_{{ vector_arch.stdout }}.deb"
+    - name: Download Vector .deb package
+      ansible.builtin.get_url:
+        url: "{{ vector_deb_url }}"
+        dest: "/tmp/{{ vector_deb_package }}"
+        mode: '0644'
 
-- name: Enable and start Vector
-  ansible.builtin.systemd:
-    name: vector
-    enabled: true
-    state: started
+    - name: Install Vector via apt
+      ansible.builtin.apt:
+        deb: "/tmp/{{ vector_deb_package }}"
+
+    - name: Ensure Vector config directory exists
+      ansible.builtin.file:
+        path: /etc/vector
+        state: directory
+
+    - name: Create basic Vector config (for validation)
+      ansible.builtin.copy:
+        dest: /etc/vector/vector.yaml
+        content: |
+          data_dir: /var/lib/vector
+          sources:
+            host_metrics:
+              type: host_metrics
+          sinks:
+            console:
+              type: console
+              inputs: ["host_metrics"]
+              encoding:
+                codec: json
+
+- name: Handle RHEL/Oracle Linux
+  when: ansible_facts['os_family'] == "RedHat"
+  block:
+    - name: Install prerequisites
+      ansible.builtin.dnf:
+        name: "{{ vector_prerequisites | default(['curl', 'gnupg']) }}"
+        state: present
+
+    - name: Get system architecture
+      ansible.builtin.command: uname -m
+      register: vector_arch_result
+      changed_when: false
+
+    - name: Set architecture fact
+      ansible.builtin.set_fact:
+        vector_arch_norm: "{{ 'arm64' if vector_arch_result.stdout == 'aarch64' else 'x86_64' }}"
+
+    - name: Download Vector .rpm package
+      ansible.builtin.get_url:
+        url: "{{ vector_rpm_url }}"
+        dest: "/tmp/{{ vector_rpm_package }}"
+        mode: '0644'
+
+    - name: Install Vector via dnf
+      ansible.builtin.dnf:
+        name: "/tmp/{{ vector_rpm_package }}"
+        state: present
+        disable_gpg_check: true
+
+    - name: Ensure Vector config directory exists
+      ansible.builtin.file:
+        path: /etc/vector
+        state: directory
+
+    - name: Create basic Vector config (for validation)
+      ansible.builtin.copy:
+        dest: /etc/vector/vector.yaml
+        content: |
+          data_dir: /var/lib/vector
+          sources:
+            host_metrics:
+              type: host_metrics
+          sinks:
+            console:
+              type: console
+              inputs: ["host_metrics"]
+              encoding:
+                codec: json

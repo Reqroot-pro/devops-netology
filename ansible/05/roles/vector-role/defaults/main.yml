@@ -1,3 +1,14 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# defaults file for vector-role
+vector_version: "0.51.1"
+
+# Debian / Ubuntu
+vector_deb_package: "vector_{{ vector_version }}-1_{{ vector_arch_norm }}.deb"
+vector_deb_url: "https://packages.timber.io/vector/{{ vector_version }}/{{ vector_deb_package }}"
+
+# RHEL / Oracle Linux
+vector_rpm_package: "vector-{{ vector_version }}-1.{{ vector_arch_norm }}.rpm"
+vector_rpm_url: "https://packages.timber.io/vector/{{ vector_version }}/{{ vector_rpm_package }}"
+
+vector_prerequisites:
+  - ca-certificates
+  - curl

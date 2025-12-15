@@ -1,0 +1,17 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+    - community.docker
+  tasks:
+    - name: Create Docker instances
+      docker_container:
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        privileged: "{{ item.privileged | default(false) }}"
+        command: sleep infinity
+        state: started
+        pull: true
+      loop: "{{ molecule_yml.platforms }}"
