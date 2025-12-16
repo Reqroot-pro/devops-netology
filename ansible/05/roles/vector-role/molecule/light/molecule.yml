@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: instance-ol9
+    image: oraclelinux:9
+    pre_build_image: true
+    vars:
+      ansible_python_interpreter: /usr/bin/python3
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      remote_tmp: /tmp/ansible-tmp
+      allow_world_readable_tmpfiles: true
+
+verifier:
+  name: ansible
