@@ -48,3 +48,31 @@
 ### Как оформить решение задания
 
 Выполненное домашнее задание пришлите в виде ссылки на .md-файл в вашем репозитории.
+
+### Решение
+
+
+##Molecule
+## Скрины
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/01.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/02.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/03.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/04.png)
+
+## Tag git
+
+https://github.com/Reqroot-pro/devops-netology/releases/tag/v0.2.0
+
+
+##Tox
+## Скрины
+
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/05.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/06.png)
+![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/05/images/07.png)
+
+## Tag git
+
+https://github.com/Reqroot-pro/devops-netology/releases/tag/v0.3.0
+
