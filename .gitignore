@@ -31,3 +31,4 @@ override.tf.json
 # Ansible inventory with sensitive data (если используется)
 inventory.yml
 inventory/*
+ansible-dev/
