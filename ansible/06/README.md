@@ -208,9 +208,13 @@ if __name__ == '__main__':
 ### Выполнение
 
 ## Скрины
-
+#шаг 4
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/06/images/01.png)
+
+#шаг 6
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/06/images/02.png)
+
+#шаг 15 и 16
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ansible/06/images/03.png)
 
 
