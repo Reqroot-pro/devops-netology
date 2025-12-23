@@ -45,6 +45,7 @@ https://github.com/Reqroot-pro/example-teamcity
 
 ## скрины
 
+
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ci/05/images/01.png)
 
 ![ссылка на скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/ci/05/images/02.png)
