@@ -1,55 +1,256 @@
-# InfluxData 1.x Sandbox
+# Домашнее задание к занятию "13.Системы мониторинга" - Дамир Гайнуллин
 
-***[InfluxDB 2.x is now available](https://portal.influxdata.com/downloads/) and available via [Docker Hub](https://hub.docker.com/_/influxdb).  
-InfluxDB 2.x includes a native user interface, batch-style task processing and more. [Get Started Here!](https://docs.influxdata.com/influxdb/v2.0/get-started/)***
+## Обязательные задания
 
-This repo is a quick way to get the entire 1.x TICK Stack spun up and working together. It uses [Docker](https://www.docker.com/) to spin up the full TICK stack in a connected 
-fashion. This is heavily tested on MacOS and should mostly work on Linux and Windows.
+1. Вас пригласили настроить мониторинг на проект. На онбординге вам рассказали, что проект представляет из себя 
+платформу для вычислений с выдачей текстовых отчетов, которые сохраняются на диск. Взаимодействие с платформой 
+осуществляется по протоколу http. Также вам отметили, что вычисления загружают ЦПУ. Какой минимальный набор метрик вы
+выведите в мониторинг и почему?
+#
+2. Менеджер продукта посмотрев на ваши метрики сказал, что ему непонятно что такое RAM/inodes/CPUla. Также он сказал, 
+что хочет понимать, насколько мы выполняем свои обязанности перед клиентами и какое качество обслуживания. Что вы 
+можете ему предложить?
+#
+3. Вашей DevOps команде в этом году не выделили финансирование на построение системы сбора логов. Разработчики в свою 
+очередь хотят видеть все ошибки, которые выдают их приложения. Какое решение вы можете предпринять в этой ситуации, 
+чтобы разработчики получали ошибки приложения?
+#
+4. Вы, как опытный SRE, сделали мониторинг, куда вывели отображения выполнения SLA=99% по http кодам ответов. 
+Вычисляете этот параметр по следующей формуле: summ_2xx_requests/summ_all_requests. Данный параметр не поднимается выше 
+70%, но при этом в вашей системе нет кодов ответа 5xx и 4xx. Где у вас ошибка?
+#
+5. Опишите основные плюсы и минусы pull и push систем мониторинга.
+#
+6. Какие из ниже перечисленных систем относятся к push модели, а какие к pull? А может есть гибридные?
 
-To get started you need a running docker installation. If you don't have one, you can download Docker for [Mac](https://www.docker.com/docker-mac) or [Windows](https://www.docker.com/docker-windows), or follow the installation instructions for Docker CE for your [Linux distribution](https://docs.docker.com/engine/installation/#server).
+    - Prometheus 
+    - TICK
+    - Zabbix
+    - VictoriaMetrics
+    - Nagios
+#
+7. Склонируйте себе [репозиторий](https://github.com/influxdata/sandbox/tree/master) и запустите TICK-стэк, 
+используя технологии docker и docker-compose.
 
-### Running
+В виде решения на это упражнение приведите скриншот веб-интерфейса ПО chronograf (`http://localhost:8888`). 
 
-To run the `sandbox`, simply use the convenient cli:
+P.S.: если при запуске некоторые контейнеры будут падать с ошибкой - проставьте им режим `Z`, например
+`./data:/var/lib:Z`
+#
+8. Перейдите в веб-интерфейс Chronograf (http://localhost:8888) и откройте вкладку Data explorer.
+        
+    - Нажмите на кнопку Add a query
+    - Изучите вывод интерфейса и выберите БД telegraf.autogen
+    - В `measurments` выберите cpu->host->telegraf-getting-started, а в `fields` выберите usage_system. Внизу появится график утилизации cpu.
+    - Вверху вы можете увидеть запрос, аналогичный SQL-синтаксису. Поэкспериментируйте с запросом, попробуйте изменить группировку и интервал наблюдений.
 
-```bash
-$ ./sandbox
-sandbox commands:
-  up           -> spin up the sandbox environment (add -nightly to grab the latest nightly builds of InfluxDB and Chronograf)
-  down         -> tear down the sandbox environment
-  restart      -> restart the sandbox
-  influxdb     -> attach to the influx cli
-  flux         -> attach to the flux REPL
-
-  enter (influxdb||kapacitor||chronograf||telegraf) -> enter the specified container
-  logs  (influxdb||kapacitor||chronograf||telegraf) -> stream logs for the specified container
-
-  delete-data  -> delete all data created by the TICK Stack
-  docker-clean -> stop and remove all running docker containers
-  rebuild-docs -> rebuild the documentation container to see updates
+Для выполнения задания приведите скриншот с отображением метрик утилизации cpu из веб-интерфейса.
+#
+9. Изучите список [telegraf inputs](https://github.com/influxdata/telegraf/tree/master/plugins/inputs). 
+Добавьте в конфигурацию telegraf следующий плагин - [docker](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker):
+```
+[[inputs.docker]]
+  endpoint = "unix:///var/run/docker.sock"
 ```
 
-To get started just run `./sandbox up`. You browser will open two tabs:
+Дополнительно вам может потребоваться донастройка контейнера telegraf в `docker-compose.yml` дополнительного volume и 
+режима privileged:
+```
+  telegraf:
+    image: telegraf:1.4.0
+    privileged: true
+    volumes:
+      - ./etc/telegraf.conf:/etc/telegraf/telegraf.conf:Z
+      - /var/run/docker.sock:/var/run/docker.sock:Z
+    links:
+      - influxdb
+    ports:
+      - "8092:8092/udp"
+      - "8094:8094"
+      - "8125:8125/udp"
+```
 
-- `localhost:8888` - Chronograf's address. You will use this as a management UI for the full stack
-- `localhost:3010` - Documentation server. This contains a simple markdown server for tutorials and documentation.
+После настройке перезапустите telegraf, обновите веб интерфейс и приведите скриншотом список `measurments` в 
+веб-интерфейсе базы telegraf.autogen . Там должны появиться метрики, связанные с docker.
 
-> NOTE: Make sure to stop any existing installations of `influxdb`, `kapacitor` or `chronograf`. If you have them running the Sandbox will run into port conflicts and fail to properly start. In this case stop the existing processes and run `./sandbox restart`. Also make sure you are **not** using _Docker Toolbox_.
+Факультативно можете изучить какие метрики собирает telegraf после выполнения данного задания.
 
-Once the Sandbox launches, you should see your dashboard appear in your browser:
+## Дополнительное задание (со звездочкой*) - необязательно к выполнению
 
-![Dashboard](./documentation/static/images/landing-page.png)
+1. Вы устроились на работу в стартап. На данный момент у вас нет возможности развернуть полноценную систему 
+мониторинга, и вы решили самостоятельно написать простой python3-скрипт для сбора основных метрик сервера. Вы, как 
+опытный системный-администратор, знаете, что системная информация сервера лежит в директории `/proc`. 
+Также, вы знаете, что в системе Linux есть  планировщик задач cron, который может запускать задачи по расписанию.
 
-You are ready to get started with the TICK Stack!
+Суммировав все, вы спроектировали приложение, которое:
+- является python3 скриптом
+- собирает метрики из папки `/proc`
+- складывает метрики в файл 'YY-MM-DD-awesome-monitoring.log' в директорию /var/log 
+(YY - год, MM - месяц, DD - день)
+- каждый сбор метрик складывается в виде json-строки, в виде:
+  + timestamp (временная метка, int, unixtimestamp)
+  + metric_1 (метрика 1)
+  + metric_2 (метрика 2)
+  
+     ...
+     
+  + metric_N (метрика N)
+  
+- сбор метрик происходит каждую 1 минуту по cron-расписанию
 
-Click the Host icon in the left navigation bar to see your host (named `telegraf-getting-started`) and its overall status.
-![Host List](./documentation/static/images/host-list.png)
+Для успешного выполнения задания нужно привести:
 
-You can click on `system` hyperlink to see a pre-built dashboard visualizing the basic system stats for your
-host, then check out the tutorials at `http://localhost:3010/tutorials`.
+а) работающий код python3-скрипта,
 
-If you are using the nightly builds and want to get started with Flux, make sure you check out the [Getting Started with Flux](./documentation/static/tutorials/flux-getting-started.md) tutorial.
+б) конфигурацию cron-расписания,
 
-> Note: see [influx-stress](https://github.com/influxdata/influx-stress) to create data for your Sandbox.
+в) пример верно сформированного 'YY-MM-DD-awesome-monitoring.log', имеющий не менее 5 записей,
 
-![Dashboard](./documentation/static/images/sandbox-dashboard.png)
+P.S.: количество собираемых метрик должно быть не менее 4-х.
+P.P.S.: по желанию можно себя не ограничивать только сбором метрик из `/proc`.
+
+2. В веб-интерфейсе откройте вкладку `Dashboards`. Попробуйте создать свой dashboard с отображением:
+
+    - утилизации ЦПУ
+    - количества использованного RAM
+    - утилизации пространства на дисках
+    - количество поднятых контейнеров
+    - аптайм
+    - ...
+    - фантазируйте)
+    
+    ---
+
+### Как оформить ДЗ?
+
+Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
+
+---
+
+## Выполнение
+
+# Мониторинг и SRE: ответы на вопросы
+
+## Задание 1
+
+Для платформы с CPU-интенсивными вычислениями, HTTP-интерфейсом и сохранением отчётов на диск минимальный набор метрик:
+
+| Категория | Метрики | Обоснование |
+|-----------|---------|-------------|
+| **Доступность** | • HTTP health-check (`/health`)<br>• Uptime / количество активных инстансов | Базовый индикатор работоспособности сервиса. Отсутствие ответа на health-check = немедленный алерт. |
+| **Бизнес-логика** | • RPS по кодам ответа (2xx, 4xx, 5xx)<br>• Latency: p50, p95, p99 | Показывает успешность и скорость обработки запросов. 5xx — сбои в логике; 4xx — проблемы на стороне клиента. |
+| **Ресурсы** | • Использование CPU (%)<br>• Свободное место на диске<br>• Скорость записи (throughput, IOPS)<br>• Использование RAM | CPU — критичен для вычислений. Диск — для сохранения отчётов: нехватка места или скорости записи приведёт к сбоям. Память — для предотвращения OOM и своппинга. |
+| **Надёжность** | • Скорость генерации отчётов (отчёты/мин)<br>• Размер генерируемых файлов | Прямой индикатор выполнения основной функции платформы. |
+
+**Почему именно этот набор?**  
+Он закрывает все ключевые точки отказа: сеть (HTTP), вычисления (CPU), хранение (диск), память и бизнес-логику. Меньше — риск пропустить сбой; больше — избыточность на этапе онбординга.
+
+---
+
+## Задание 2
+
+Менеджеру нужны бизнес-показатели, а не технические детали.
+
+### Решение: модель SLI/SLO/SLA
+
+| Понятие | Описание | Пример для платформы |
+|---------|----------|----------------------|
+| **SLI** | Измеримый показатель качества | • Успешность: `% 2xx-запросов`<br>• Скорость: `% запросов < 2 с (p95)` |
+| **SLO** | Целевое значение SLI | • Успешность: 99.9%<br>• Latency: 95% запросов < 2 с |
+| **SLA** | Юридическое обязательство перед клиентом | Компенсация при нарушении SLO за расчётный период |
+
+### Дашборд для менеджера
+
+-  **Error budget remaining** — сколько ошибок можно допустить до конца периода
+-  **Burn rate** — скорость «сгорания» бюджета ошибок («бюджет закончится через 3 дня»)
+-  **Бизнес-метрики**:
+  - «Сегодня обработано 12 500 отчётов»
+  - «99.97% клиентов получили результат без ошибок»
+  - «Среднее время генерации отчёта: 1.4 с»
+
+### Замена технических терминов
+
+| Технический термин | Бизнес-формулировка |
+|--------------------|---------------------|
+| CPU load 80% | «Сервис справляется с пиковой нагрузкой» |
+| Заканчиваются inodes | «Риск остановки сохранения отчётов через 4 часа» |
+| Высокий RAM usage | «Рост сложности вычислений — требуется оптимизация» |
+
+**Итог:** Фокус на результате для клиента — получил ли отчёт, быстро ли, без ошибок.
+
+---
+
+## Задание 3
+
+### Варианты решений
+
+| Решение | Реализация | Плюсы | Минусы |
+|---------|------------|-------|--------|
+| **stdout + оркестратор** | • K8s: `kubectl logs -l app=service \| grep ERROR`<br>• Docker: `docker logs <container> \| grep -i error`<br>• CronJob → Slack/email через вебхук | Бесплатно, использует существующую инфраструктуру | Нет централизованного поиска, ручной анализ |
+| **Легковесный агент** | Установить `vector` или `filebeat` в режиме отправки **только строк с `ERROR`/`FATAL`** → HTTP-вебхук в Slack/Telegram | Минимальная нагрузка, автоматизация | Требует развёртывания агента на хостах |
+| **Метрики-прокси** | Экспорт счётчика исключений: `app_exceptions_total{type="db", severity="critical"}` → алерт в мониторинге | Не требует новой инфраструктуры, работает с существующим Prometheus | Нет стек-трейса, только факт и тип ошибки |
+| **Общая папка + скрипт** | Приложения пишут ошибки в `/var/log/app/errors.log` → скрипт `tail -F + grep ERROR` → Telegram-бот | Простота, минимум зависимостей | Нет поиска по истории, только текущие ошибки |
+
+**Рекомендация:** комбинировать метрики-прокси (для алертов) + легковесный агент для отправки стек-трейсов критических ошибок в чат.
+
+---
+
+## Задание 4
+
+**Формула:** `SLA = сумма_2xx / сумма_всех_запросов`  
+**Проблема:** значение ≤ 70%, при этом 4xx/5xx отсутствуют.
+
+### Причина
+
+В знаменателе учитываются **все HTTP-запросы**, включая:
+- **3xx-ответы** (редиректы 301/302/307 — например, при аутентификации или неправильном URL)
+- **1xx-ответы** (информационные, редко)
+- **Запросы без ответа** (таймауты, обрывы соединения)
+
+Если 30% трафика — это 3xx (например, редиректы на `/login`), то SLA = 70%.
+
+### Исправление
+
+1. **Уточнить бизнес-логику:** являются ли 3xx «успешными»?
+   - Для публичного API: обычно нет → искать причину массовых редиректов
+   - Для веб-интерфейса: возможно да → скорректировать формулу
+
+2. **Скорректировать формулу:**
+   - Если 3xx — ошибка: `SLA = 2xx / (2xx + 4xx + 5xx)`
+   - Если 3xx — норма: `SLA = (2xx + 3xx) / все_запросы`
+
+3. **Исключить «битые» запросы:** учитывать в знаменателе только запросы с валидным HTTP-кодом.
+
+**Вывод:** ошибка в формуле, а не в данных. SLA должен измерять *бизнес-успех*, а не просто код 200.
+
+---
+
+## Задание 5
+
+| Критерий | Pull-модель | Push-модель |
+|----------|-------------|-------------|
+| **Как работает** | Сервер опрашивает targets | Targets отправляют данные на сервер |
+| **Плюсы** | • Простое управление (сервер контролирует частоту опроса)<br>• Легко обнаруживать «пропавшие» targets<br>• Targets не должны знать адрес сервера — безопаснее<br>• Естественная защита от перегрузки сервера | • Работает с эфемерными сервисами (serverless, jobs)<br>• Не требует открытия входящих портов на targets<br>• Проще масштабировать при большом числе targets |
+| **Минусы** | • Сервер должен иметь сетевой доступ ко всем targets<br>• Сложно мониторить короткоживущие задачи<br>• Риск перегрузки сервера при большом числе targets | • Targets должны знать адрес сервера — сложнее управлять конфигурацией<br>• Сервер может быть перегружен «лавиной» пушей<br>• Сложно обнаружить «умерший» target без хартбитов |
+| **Типичное применение** | Стабильные сервисы в контролируемой сети (он-презе, дата-центр) | Динамические среды (облако, микросервисы, serverless) |
+
+---
+
+## Задание 6
+
+| Система | Модель | Пояснение |
+|---------|--------|-----------|
+| **Prometheus** | Pull (основная) | Сервер опрашивает targets через `/metrics`. Pushgateway — исключение для короткоживущих задач, не основная модель. |
+| **TICK** (Telegraf → InfluxDB) | Push | Telegraf (агент) активно отправляет метрики в InfluxDB. Сервер не опрашивает агенты. |
+| **Zabbix** | Гибридная | • Passive checks: сервер опрашивает агент (pull)<br>• Active checks: агент сам отправляет данные (push) |
+| **VictoriaMetrics** | Гибридная | • Scraping (pull) как замена Prometheus<br>• Приём данных по push-протоколам: InfluxDB line protocol, Graphite, OpenTSDB |
+| **Nagios** | Pull | Сервер выполняет проверки (локально или через NRPE/SSH). Инициатива всегда от сервера. |
+
+## Задание 7
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/02/images/01.png)
+
+## Задание 8
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/02/images/02.png)
+
+## Задание 9
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/02/images/03.png)
