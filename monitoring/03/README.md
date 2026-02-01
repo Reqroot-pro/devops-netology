@@ -131,7 +131,7 @@ node_filesystem_avail_bytes{instance="nodeexporter:9100", job="nodeexporter", mo
 1. Создайте для каждой Dashboard подходящее правило alert — можно обратиться к первой лекции в блоке «Мониторинг».
 2. В качестве решения задания приведите скриншот вашей итоговой Dashboard.
 
-Для выполнения задания и удобства восприятия информации внешний вид панели был изменен изменен:
+Для выполнения задания и удобства восприятия информации внешний вид панели был изменен:
 
 ![Alt_text](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/03/images/05.png)
 
