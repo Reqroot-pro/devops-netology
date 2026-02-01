@@ -67,7 +67,7 @@ Filebeat следует сконфигурировать для отправки
 
 - скриншот `docker ps` через 5 минут после старта всех контейнеров (их должно быть 5);
 
-![Alt_test](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/01.png)
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/01.png)
 
 - скриншот интерфейса kibana;
 
@@ -79,11 +79,11 @@ Filebeat следует сконфигурировать для отправки
 
 В версии 8.12.2, где интерфейс претерпел небольшие изменения, index pattern теперь создаётся через раздел Data Views  [data-view](https://www.elastic.co/guide/en/kibana/8.12/data-views.html).
 
-![Alt_test](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/03.png)
-![Alt_test](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/04.png)
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/03.png)
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/004.png)
 
 
 Перейдите в меню просмотра логов в kibana (Discover) и самостоятельно изучите, как отображаются логи и как производить поиск по логам.
 
-![Alt_test](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/05.png)
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/05.png)
 
