@@ -77,7 +77,7 @@ Filebeat следует сконфигурировать для отправки
 
 Перейдите в меню [создания index-patterns  в kibana](http://localhost:5601/app/management/kibana/indexPatterns/create) и создайте несколько index-patterns из имеющихся.
 
-В версии 8.12.2, где интерфейс претерпел небольшие изменения, index pattern теперь создаётся через раздел Data Views  [data-view](https://www.elastic.co/guide/en/kibana/8.12/data-views.html).
+В версии >8.x.x, где интерфейс претерпел небольшие изменения, index pattern теперь создаётся через раздел Data Views  [data-view](https://www.elastic.co/guide/en/kibana/8.12/data-views.html).
 
 ![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/03.png)
 ![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/04/images/04.png)
