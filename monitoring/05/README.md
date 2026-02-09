@@ -53,3 +53,23 @@ Free Cloud account имеет ограничения:
 ---
 
 ## Выполнение 
+
+## Задание 1
+
+- скриншот меню Projects;
+
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/05/images/01.png)
+
+## Задание 2
+
+- скриншот Stack trace из этого события и список событий проекта после нажатия Resolved;
+
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/05/images/02.png)
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/05/images/03.png)
+
+## Задание 3
+
+- скриншот решения задания в виде тела сообщения из оповещения на почте;
+
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/05/images/04.png)
+![скриншот](https://github.com/Reqroot-pro/devops-netology/blob/main/monitoring/05/images/05.png)
