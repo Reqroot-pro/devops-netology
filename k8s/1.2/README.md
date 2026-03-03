@@ -51,5 +51,18 @@
 
 На доработку — задание выполнено частично или не выполнено, в логике выполнения заданий есть противоречия, существенные недостатки.
 
+---
+### Выполнение
 
-## Решение
+### Задание 1. Создать Pod с именем hello-world
+[manifests/pod-hello-world.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/1.2/manifests/pod-hello-world.yaml)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.2/images/01.png
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.2/images/02.png
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.2/images/03.png
+
+### Задание 2. Создать Service и подключить его к Pod
+[manifests/pod-netology-web.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/1.2/manifests/pod-netology-web.yaml)
+[manifests/service-netology-svc.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/1.2/manifests/service-netology-svc.yaml)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.2/images/04.png
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.2/images/05.png
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.2/images/06.png
