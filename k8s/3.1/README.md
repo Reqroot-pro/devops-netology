@@ -61,7 +61,7 @@
 | CPU | 8 ядер |
 | RAM | 16 ГБ |
 | Disk | 50 ГБ SSD |
-| OS | Linux (Ubuntu 22.04 LTS / Rocky Linux 9) |
+| OS | Linux (Ubuntu 22.04 LTS) |
 
 ---
 
