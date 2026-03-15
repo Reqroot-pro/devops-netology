@@ -1,4 +1,4 @@
-# Домашнее задание к занятию «Хранение в K8s»
+# Домашнее задание к занятию «Хранение в K8s» - Гайнуллин Дамир
 
 ### Примерное время выполнения задания — 180 минут
 
@@ -306,5 +306,5 @@ persistentVolumeReclaimPolicy: Retain
 
 [manifests/sc.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/2.1/manifests/sc.yaml)
 
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/2.1/images/07.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/2.1/images/08.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/2.1/images/09.png)
