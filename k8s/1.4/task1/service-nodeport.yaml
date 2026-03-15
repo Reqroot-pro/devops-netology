@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport-service
+spec:
+  type: NodePort  # Доступ снаружи кластера через порт узла
+  selector:
+    app: multi-container
+  ports:
+  - name: nginx-external
+    port: 80  # Порт сервиса
+    targetPort: 80  # Порт контейнера
+    nodePort: 30080  # Фиксированный порт узла (30000-32767), можно убрать для авто-выбора
+    protocol: TCP

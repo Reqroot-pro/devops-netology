@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: multi-container-service
+spec:
+  type: ClusterIP  # Доступ только внутри кластера
+  selector:
+    app: multi-container  # Выбирает поды с этой меткой
+  ports:
+  - name: nginx-port  # Имя порта для удобства
+    port: 9001  # Порт сервиса (внутри кластера)
+    targetPort: 80  # Порт контейнера nginx
+    protocol: TCP
+  - name: multitool-port
+    port: 9002  # Порт сервиса для multitool
+    targetPort: 8080  # Порт контейнера multitool
+    protocol: TCP
