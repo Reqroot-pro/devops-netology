@@ -57,5 +57,5 @@
 ## Задание 2.
 
 
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/2.4/images/01.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/2.4/images/011.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/2.4/images/02.png)
