@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-content
+  namespace: default
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Страница из ConfigMap</title>
+      <meta charset="utf-8">
+    </head>
+    <body>
+      <h1>Привет от Kubernetes!</h1>
+      <p>Эта страница загружена из ConfigMap</p>
+      <p>Дата: <span id="date"></span></p>
+      <script>
+        document.getElementById('date').textContent = new Date().toLocaleString('ru-RU');
+      </script>
+    </body>
+    </html>
