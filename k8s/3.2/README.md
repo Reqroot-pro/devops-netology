@@ -67,13 +67,6 @@ sudo modprobe ip_tables
 sudo modprobe nf_conntrack
 ```
 
-Проверяем, что загрузились (если нет — скрипт остановится)
-```bash
-for mod in overlay br_netfilter; do
-  lsmod | grep -q "^$mod" || { echo "Модуль $mod не загрузился!"; exit 1; }
-done
-```
-
 3. Sysctl: применить СЕЙЧАС + сохранить НАВСЕГДА
 Создаём файл настроек
 ```bash
@@ -85,17 +78,22 @@ EOF
 ```
 
 Применяем настройки прямо сейчас
+```bash
 sudo sysctl --system
+```
 
 4. Containerd (CRI)
+```bash
 sudo apt-get update -qq
 sudo apt-get install -y -qq containerd
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 sudo systemctl enable --now containerd
+```
 
 5. Kubernetes пакеты
+```bash
 sudo apt-get install -y -qq apt-transport-https ca-certificates curl
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
@@ -103,10 +101,12 @@ sudo apt-get update -qq
 sudo apt-get install -y -qq kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 sudo systemctl enable --now kubelet
+```
 
 -----
 
 ## НА МАСТЕР НОДЕ
+```bash
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 mkdir -p $HOME/.kube
@@ -115,18 +115,21 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 export KUBECONFIG=$HOME/.kube/config
 
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.24.2/Documentation/kube-flannel.yml
+```
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/01.png)
 
 ## Вставьте команду в каждой воркер ноде, полученную с мастера
-
+```bash
 sudo kubeadm join 101.111.107.5:6443 --token dbnwye.y8tig6t1v7s8l2jc --discovery-token-ca-cert-hash sha256:01d2d3124ba17c3714c272281c5ccc35e9463805ec9ab8af238ed797b50e3227
+```
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/02.png)
 
 -----
 
 ## ИТОГОВАЯ ПРОВЕРКА
+```bash
 1. Все ноды Ready
 kubectl get nodes -o wide
 
@@ -138,6 +141,7 @@ kubectl get pods -n kube-system | grep etcd
 
 4. Тест DNS
 kubectl run test-dns --image=busybox:1.36 --rm -it --restart=Never -- nslookup kubernetes.default.svc.cluster.local
+```
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/02.png)
 
