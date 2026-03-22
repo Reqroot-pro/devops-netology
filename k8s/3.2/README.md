@@ -94,6 +94,8 @@ sudo apt-get install -y -qq kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 sudo systemctl enable --now kubelet
 
+-----
+
 # НА МАСТЕР НОДЕ
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
@@ -111,6 +113,8 @@ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.24.2/Do
 sudo kubeadm join 101.111.107.5:6443 --token dbnwye.y8tig6t1v7s8l2jc --discovery-token-ca-cert-hash sha256:01d2d3124ba17c3714c272281c5ccc35e9463805ec9ab8af238ed797b50e3227
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/02.png)
+
+-----
 
 # ИТОГОВАЯ ПРОВЕРКА
 1. Все ноды Ready
