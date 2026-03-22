@@ -48,31 +48,41 @@
 
 ## Подготовка на ВСЕХ нодах
 1. Отключение swap
+```bash
 sudo swapoff -a
 sudo sed -i '/^\([^#].*swap.*\)$/s/^/# /' /etc/fstab
+```
 
 2. Модули ядра: загрузить СЕЙЧАС + сохранить
 Создаём файл автозагрузки модулей
+```bash
 echo -e "overlay\nbr_netfilter\nip_tables\nnf_conntrack" | sudo tee /etc/modules-load.d/k8s.conf
+```
 
 Загружаем модули
+```bash
 sudo modprobe overlay
 sudo modprobe br_netfilter
 sudo modprobe ip_tables
 sudo modprobe nf_conntrack
+```
 
 Проверяем, что загрузились (если нет — скрипт остановится)
+```bash
 for mod in overlay br_netfilter; do
   lsmod | grep -q "^$mod" || { echo "Модуль $mod не загрузился!"; exit 1; }
 done
+```
 
 3. Sysctl: применить СЕЙЧАС + сохранить НАВСЕГДА
 Создаём файл настроек
+```bash
 cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
+```
 
 Применяем настройки прямо сейчас
 sudo sysctl --system
