@@ -75,20 +75,16 @@ EOF
 
 Применяем настройки прямо сейчас
 sudo sysctl --system
-```
 
 4. Containerd (CRI)
-```bash
 sudo apt-get update -qq
 sudo apt-get install -y -qq containerd
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 sudo systemctl enable --now containerd
-```
 
 5. Kubernetes пакеты
-```bash
 sudo apt-get install -y -qq apt-transport-https ca-certificates curl
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
