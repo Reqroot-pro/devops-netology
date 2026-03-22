@@ -105,7 +105,7 @@ sudo systemctl enable --now kubelet
 
 -----
 
-## НА МАСТЕР НОДЕ
+## На мастер ноде
 ```bash
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
@@ -128,7 +128,7 @@ sudo kubeadm join 101.111.107.5:6443 --token dbnwye.y8tig6t1v7s8l2jc --discovery
 
 -----
 
-## ИТОГОВАЯ ПРОВЕРКА
+## Итоговая проверка
 ```bash
 1. Все ноды Ready
 kubectl get nodes -o wide
