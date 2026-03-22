@@ -44,9 +44,9 @@
 
 ### Выполнение
 
-### Задание 1.
+# Задание 1.
 
-Подготовка на ВСЕХ нодах
+## Подготовка на ВСЕХ нодах
 1. Отключение swap
 sudo swapoff -a
 sudo sed -i '/^\([^#].*swap.*\)$/s/^/# /' /etc/fstab
@@ -96,7 +96,7 @@ sudo systemctl enable --now kubelet
 
 -----
 
-# НА МАСТЕР НОДЕ
+## НА МАСТЕР НОДЕ
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 mkdir -p $HOME/.kube
@@ -108,7 +108,7 @@ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.24.2/Do
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/01.png)
 
-# Вставьте команду в каждой воркер ноде, полученную с мастера
+## Вставьте команду в каждой воркер ноде, полученную с мастера
 
 sudo kubeadm join 101.111.107.5:6443 --token dbnwye.y8tig6t1v7s8l2jc --discovery-token-ca-cert-hash sha256:01d2d3124ba17c3714c272281c5ccc35e9463805ec9ab8af238ed797b50e3227
 
@@ -116,7 +116,7 @@ sudo kubeadm join 101.111.107.5:6443 --token dbnwye.y8tig6t1v7s8l2jc --discovery
 
 -----
 
-# ИТОГОВАЯ ПРОВЕРКА
+## ИТОГОВАЯ ПРОВЕРКА
 1. Все ноды Ready
 kubectl get nodes -o wide
 
