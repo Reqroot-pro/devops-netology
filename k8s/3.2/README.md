@@ -46,11 +46,11 @@
 
 ## Задание 1.
 
-# === 1. Отключение swap (навсегда) ===
+# 1. Отключение swap
 sudo swapoff -a
 sudo sed -i '/^\([^#].*swap.*\)$/s/^/# /' /etc/fstab
 
-# === 2. Модули ядра: загрузить СЕЙЧАС + сохранить НАВСЕГДА ===
+# 2. Модули ядра: загрузить СЕЙЧАС + сохранить
 # Создаём файл автозагрузки модулей
 echo -e "overlay\nbr_netfilter\nip_tables\nnf_conntrack" | sudo tee /etc/modules-load.d/k8s.conf
 
@@ -65,7 +65,7 @@ for mod in overlay br_netfilter; do
   lsmod | grep -q "^$mod" || { echo "Модуль $mod не загрузился!"; exit 1; }
 done
 
-# === 3. Sysctl: применить СЕЙЧАС + сохранить НАВСЕГДА ===
+# 3. Sysctl: применить СЕЙЧАС + сохранить НАВСЕГДА
 # Создаём файл настроек
 cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes.conf
 net.bridge.bridge-nf-call-iptables  = 1
@@ -76,7 +76,7 @@ EOF
 # Применяем настройки прямо сейчас
 sudo sysctl --system
 
-# === 4. Containerd (CRI) ===
+# 4. Containerd (CRI)
 sudo apt-get update -qq
 sudo apt-get install -y -qq containerd
 sudo mkdir -p /etc/containerd
@@ -84,7 +84,7 @@ containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 sudo systemctl enable --now containerd
 
-# === 5. Kubernetes пакеты ===
+# 5. Kubernetes пакеты
 sudo apt-get install -y -qq apt-transport-https ca-certificates curl
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
