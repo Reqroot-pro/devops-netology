@@ -46,37 +46,38 @@
 
 ## Задание 1.
 
-# 1. Отключение swap
+# Подготовка на ВСЕХ нодах
+1. Отключение swap
 sudo swapoff -a
 sudo sed -i '/^\([^#].*swap.*\)$/s/^/# /' /etc/fstab
 
-# 2. Модули ядра: загрузить СЕЙЧАС + сохранить
-# Создаём файл автозагрузки модулей
+2. Модули ядра: загрузить СЕЙЧАС + сохранить
+Создаём файл автозагрузки модулей
 echo -e "overlay\nbr_netfilter\nip_tables\nnf_conntrack" | sudo tee /etc/modules-load.d/k8s.conf
 
-# Загружаем модули
+Загружаем модули
 sudo modprobe overlay
 sudo modprobe br_netfilter
 sudo modprobe ip_tables
 sudo modprobe nf_conntrack
 
-# Проверяем, что загрузились (если нет — скрипт остановится)
+Проверяем, что загрузились (если нет — скрипт остановится)
 for mod in overlay br_netfilter; do
   lsmod | grep -q "^$mod" || { echo "Модуль $mod не загрузился!"; exit 1; }
 done
 
-# 3. Sysctl: применить СЕЙЧАС + сохранить НАВСЕГДА
-# Создаём файл настроек
+3. Sysctl: применить СЕЙЧАС + сохранить НАВСЕГДА
+Создаём файл настроек
 cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
-# Применяем настройки прямо сейчас
+Применяем настройки прямо сейчас
 sudo sysctl --system
 
-# 4. Containerd (CRI)
+4. Containerd (CRI)
 sudo apt-get update -qq
 sudo apt-get install -y -qq containerd
 sudo mkdir -p /etc/containerd
@@ -84,7 +85,7 @@ containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 sudo systemctl enable --now containerd
 
-# 5. Kubernetes пакеты
+5. Kubernetes пакеты
 sudo apt-get install -y -qq apt-transport-https ca-certificates curl
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
@@ -93,7 +94,7 @@ sudo apt-get install -y -qq kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 sudo systemctl enable --now kubelet
 
-## НА МАСТЕР НОДЕ
+# НА МАСТЕР НОДЕ
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 mkdir -p $HOME/.kube
@@ -111,17 +112,17 @@ sudo kubeadm join 101.111.107.5:6443 --token dbnwye.y8tig6t1v7s8l2jc --discovery
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/02.png)
 
-## ИТОГОВАЯ ПРОВЕРКА
-# 1. Все ноды Ready
+# ИТОГОВАЯ ПРОВЕРКА
+1. Все ноды Ready
 kubectl get nodes -o wide
 
-# 2. Все системные поды Running
+2. Все системные поды Running
 kubectl get pods -n kube-system
 
-# 3. etcd на мастере (требование задания)
+3. etcd на мастере (требование задания)
 kubectl get pods -n kube-system | grep etcd
 
-# 4. Тест DNS
+4. Тест DNS
 kubectl run test-dns --image=busybox:1.36 --rm -it --restart=Never -- nslookup kubernetes.default.svc.cluster.local
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.2/images/02.png)
