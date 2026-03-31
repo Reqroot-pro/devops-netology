@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app
+  labels:
+    app: nginx
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Не более 1 лишнего пода (20% от 5)
+      maxUnavailable: 0  # Все 5 подов должны быть доступны всегда
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.19
+        ports:
+        - containerPort: 80
+      - name: multitool
+        image: praqma/network-multitool:latest
+        command: ["sleep", "infinity"] # Чтобы контейнер не падал
