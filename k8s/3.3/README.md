@@ -34,7 +34,7 @@
 
 ## Подготовка кластера Calico
 
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.3/images/01.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.3/images/011.png)
 
 # Задание 1.
 
