@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: frontend
+  template:
+    metadata:
+      labels:
+        role: frontend
+    spec:
+      containers:
+      - name: network-multitool
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 80
+        env:
+        - name: DISABLE_SSL
+          value: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: backend
+  template:
+    metadata:
+      labels:
+        role: backend
+    spec:
+      containers:
+      - name: network-multitool
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 80
+        env:
+        - name: DISABLE_SSL
+          value: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: cache
+  template:
+    metadata:
+      labels:
+        role: cache
+    spec:
+      containers:
+      - name: network-multitool
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 80
+        env:
+        - name: DISABLE_SSL
+          value: "true"
