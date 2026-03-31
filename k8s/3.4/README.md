@@ -89,6 +89,7 @@ maxUnavailable: 0 — гарантировать, что количество д
 # Обновление 11.28
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/05.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/06.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/07.png)
 
 # Откат
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/07.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/08.png)
