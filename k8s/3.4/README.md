@@ -78,17 +78,17 @@ maxUnavailable: 0 — гарантировать, что количество д
 
 [manifests/deployment.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/3.4/manifests/deployment.yaml)
 
-Создание 1.19
+# Создание 1.19
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/01.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/02.png)
 
-Обновление 1.20
+# Обновление 1.20
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/03.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/04.png)
 
-Обновление 11.28
+# Обновление 11.28
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/05.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/06.png)
 
-Откат
+# Откат
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.4/images/07.png)
