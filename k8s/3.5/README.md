@@ -50,7 +50,7 @@ kubectl apply -f task-fixed.yaml
 kubectl rollout restart deployment web-consumer -n web
 ```
 
-## Демонстариция решения проблем
+## Демонстрация решения проблемы
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.5/images/01.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.5/images/02.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/3.5/images/03.png)
