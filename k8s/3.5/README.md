@@ -44,6 +44,7 @@ kubectl create namespace web
 kubectl create namespace data
 
 # Применение исправленного манифеста
+kubectl delete deployment web-consumer -n web
 kubectl apply -f task-fixed.yaml
 
 # Перезапуск подов для применения изменений
