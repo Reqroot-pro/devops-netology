@@ -1,34 +1,32 @@
-# 🔐 Sensitive keys
-sa-key.json
-ssh-key-*
+# Секреты и ключи
+key*.json
 *.pem
 *.key
+*.secret
+*.env
+inventory/*
+!inventory/example.yml
 
-# 🔑 Ansible
-.ansible/
-*.retry
-
-# 🧱 Terraform local state and cache
+# Terraform
 **/.terraform/
 *.tfstate
 *.tfstate.backup
 *.tfvars
-*.tfvars.json
+!terraform.tfvars.example
 crash.log
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
-.terraform.lock.hcl
 
-# 👨‍💻 IDE and OS trash
+# Ansible
+.ansible/
+*.retry
+
+# IDE и OS
 .vscode/
 .idea/
 *.swp
 *.swo
 .DS_Store
-
-# Ansible inventory with sensitive data (если используется)
-inventory.yml
-inventory/*
-ansible-dev/
+Thumbs.db
