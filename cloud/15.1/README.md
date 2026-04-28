@@ -79,7 +79,7 @@ Resource Terraform:
  - Создать в этой подсети NAT-инстанс, присвоив ему адрес 192.168.10.254. В качестве image_id использовать fd80mrhj8fl2oe87o4e1.
  - Создать в этой публичной подсети виртуалку с публичным IP, подключиться к ней и убедиться, что есть доступ к интернету.
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/02.png)
-![](https://github.com/Reqroot-pro/devops-netology/blob//maincloud/15.1/images/03.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/03.png)
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/04.png)
  
 3. Приватная подсеть.
