@@ -69,17 +69,28 @@ Resource Terraform:
 ### Выполнение
 
 ## Задание 1.
-Возникшая ошибка и решение:
-При первоначальном запуске контейнер multitool мог завершаться с ошибкой (CrashLoopBackOff), так как у него не была явно указана команда для длительного выполнения, или происходил конфликт портов.
-Решение: Убедились, что образ multitool имеет entrypoint для долгой работы, и разнесли порты (nginx на 80, multitool использует внутренние команды или 8080). В данном манифесте используется стандартный образ, который остается активным.
 
-[task1/deployment.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/1.3/task1/deployment.yaml)
-[task1/test-pod.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/1.3/task1/test-pod.yaml)
-[task1/service.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/k8s/1.3/task1/service.yaml)
+1. Создать пустую VPC. Выбрать зону. 
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/01.png)
 
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.3/images/01.png)
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.3/images/02.png)
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.3/images/03.png)
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/k8s/1.3/images/04.png)
+2. Публичная подсеть.
+
+ - Создать в VPC subnet с названием public, сетью 192.168.10.0/24.
+ - Создать в этой подсети NAT-инстанс, присвоив ему адрес 192.168.10.254. В качестве image_id использовать fd80mrhj8fl2oe87o4e1.
+ - Создать в этой публичной подсети виртуалку с публичным IP, подключиться к ней и убедиться, что есть доступ к интернету.
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/02.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//maincloud/15.1/images/03.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/04.png)
+ 
+3. Приватная подсеть.
+ - Создать в VPC subnet с названием private, сетью 192.168.20.0/24.
+ - Создать route table. Добавить статический маршрут, направляющий весь исходящий трафик private сети в NAT-инстанс.
+ - Создать в этой приватной подсети виртуалку с внутренним IP, подключиться к ней через виртуалку, созданную ранее, и убедиться, что есть доступ к интернету.
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/05.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//maincloud/15.1/images/06.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/07.png)
+![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/08.png)
+
+
 
 
