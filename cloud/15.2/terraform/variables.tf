@@ -21,14 +21,8 @@ variable "ssh_public_key" {
 
 # Object Storage
 variable "bucket_name" {
-  description = "Имя бакета (глобально уникальное)"
+  description = "Имя бакета"
   type        = string
-}
-
-variable "image_file_path" {
-  description = "Путь к файлу картинки"
-  type        = string
-  default     = "${path.module}/files/logo.png"
 }
 
 variable "image_object_name" {
