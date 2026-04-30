@@ -85,7 +85,7 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
 1. Создать бакет Object Storage и разместить в нём файл с картинкой:
 
  - Создать бакет в Object Storage с произвольным именем (например, _имя_студента_дата_).
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/01.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/1.png)
  - Положить в бакет файл с картинкой.
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/02.png)
  - Сделать файл доступным из интернета.
