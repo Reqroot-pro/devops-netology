@@ -82,13 +82,34 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
 
 ## Задание 1.
 
-1. Создать бакет S3 и разместить в нём файл с картинкой:
+1. Создать бакет Object Storage и разместить в нём файл с картинкой:
 
- - Создать бакет в S3 с произвольным именем (например, _имя_студента_дата_).
+ - Создать бакет в Object Storage с произвольным именем (например, _имя_студента_дата_).
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/01.png)
  - Положить в бакет файл с картинкой.
- - Сделать доступным из интернета.
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/01.png)
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/02.png)
+ - Сделать файл доступным из интернета.
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/03.png)
+ 
+2. Создать группу ВМ в public подсети фиксированного размера с шаблоном LAMP и веб-страницей, содержащей ссылку на картинку из бакета:
 
-2. Сделать Launch configurations с использованием bootstrap-скрипта с созданием веб-страницы, на которой будет ссылка на картинку в S3. 
-3. Загрузить три ЕС2-инстанса и настроить LB с помощью Autoscaling Group. 
+ - Создать Instance Group с тремя ВМ и шаблоном LAMP. Для LAMP рекомендуется использовать `image_id = fd827b91d99psvq5fjit`.
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/04.png)
+ - Для создания стартовой веб-страницы рекомендуется использовать раздел `user_data` в [meta_data](https://cloud.yandex.ru/docs/compute/concepts/vm-metadata).
+ - Разместить в стартовой веб-странице шаблонной ВМ ссылку на картинку из бакета.
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/05.png)
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/06.png)
+ - Настроить проверку состояния ВМ.
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/07.png)
+   ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/08.png)
+ 
+3. Подключить группу к сетевому балансировщику:
+
+ - Создать сетевой балансировщик.
+ - Проверить работоспособность, удалив одну или несколько ВМ.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/09.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/10.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.2/images/11.png)
+
+
 
