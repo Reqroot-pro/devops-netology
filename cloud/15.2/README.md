@@ -87,9 +87,9 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
  - Создать бакет в Object Storage с произвольным именем (например, _имя_студента_дата_).
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/1.png)
  - Положить в бакет файл с картинкой.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/02.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/2.png)
  - Сделать файл доступным из интернета.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/03.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/3.png)
  
 2. Создать группу ВМ в public подсети фиксированного размера с шаблоном LAMP и веб-страницей, содержащей ссылку на картинку из бакета:
 
@@ -97,17 +97,17 @@ echo "<html><h1>My cool web-server</h1></html>" > index.html
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/04.png)
  - Для создания стартовой веб-страницы рекомендуется использовать раздел `user_data` в [meta_data](https://cloud.yandex.ru/docs/compute/concepts/vm-metadata).
  - Разместить в стартовой веб-странице шаблонной ВМ ссылку на картинку из бакета.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/05.png)
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/06.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/5.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/6.png)
  - Настроить проверку состояния ВМ.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/07.png)
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/08.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/7.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/8.png)
  
 3. Подключить группу к сетевому балансировщику:
 
  - Создать сетевой балансировщик.
  - Проверить работоспособность, удалив одну или несколько ВМ.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/09.png)
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/9.png)
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/10.png)
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/11.png)
 
