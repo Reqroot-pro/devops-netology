@@ -6,7 +6,7 @@ resource "yandex_vpc_network" "main" {
 }
 
 resource "yandex_vpc_subnet" "public" {
-  name           = "hw152-public"
+  name           = "hw153-public"
   zone           = var.zone
   network_id     = yandex_vpc_network.main.id
   v4_cidr_blocks = [var.subnet_cidr]
