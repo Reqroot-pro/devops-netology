@@ -1,0 +1,29 @@
+output "bucket_name" {
+  description = "Имя бакета"
+  value       = yandex_storage_bucket.main.bucket
+}
+
+output "image_public_url" {
+  description = "Публичная ссылка на картинку"
+  value       = "https://${yandex_storage_bucket.main.bucket}.storage.yandexcloud.net/${var.image_object_name}"
+}
+
+output "load_balancer_ip" {
+  description = "Публичный IP балансировщика"
+  value       = yandex_lb_network_load_balancer.main.listener.0.external_address_spec.0.address
+}
+
+output "instance_group_name" {
+  description = "Имя группы инстансов"
+  value       = yandex_compute_instance_group.lamp_group.name
+}
+
+output "vpc_id" {
+  description = "ID созданной VPC"
+  value       = yandex_vpc_network.main.id
+}
+
+output "subnet_public_id" {
+  description = "ID публичной подсети"
+  value       = yandex_vpc_subnet.public.id
+}
