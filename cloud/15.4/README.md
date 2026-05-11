@@ -66,3 +66,43 @@
 Домашняя работа оформляется в своём Git репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
 Файл README.md должен содержать скриншоты вывода необходимых команд, а также скриншоты результатов.
 Репозиторий должен содержать тексты манифестов или ссылки на них в файле README.md.
+
+### Выполнение
+
+## Задание 1. Yandex Cloud   
+
+1. Настроить с помощью Terraform кластер баз данных MySQL.
+
+ - Используя настройки VPC из предыдущих домашних заданий, добавить дополнительно подсеть private в разных зонах, чтобы обеспечить отказоустойчивость.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/01.png)
+ - Разместить ноды кластера MySQL в разных подсетях.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/02.png)
+ - Необходимо предусмотреть репликацию с произвольным временем технического обслуживания.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/03.png)
+ - Использовать окружение Prestable, платформу Intel Broadwell с производительностью 50% CPU и размером диска 20 Гб.
+ - Задать время начала резервного копирования — 23:59.
+ - Включить защиту кластера от непреднамеренного удаления.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/04.png)
+ - Создать БД с именем `netology_db`, логином и паролем.
+  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/05.png)
+
+2. Настроить с помощью Terraform кластер Kubernetes.
+
+ - Используя настройки VPC из предыдущих домашних заданий, добавить дополнительно две подсети public в разных зонах, чтобы обеспечить отказоустойчивость.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/01.png)
+ - Создать отдельный сервис-аккаунт с необходимыми правами.
+  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/06.png)
+ - Создать региональный мастер Kubernetes с размещением нод в трёх разных подсетях.
+  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/07.png)
+ - Добавить возможность шифрования ключом из KMS, созданным в предыдущем домашнем задании.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/08.png)
+ - Создать группу узлов, состояющую из трёх машин с автомасштабированием до шести.
+  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/09.png)
+ - Подключиться к кластеру с помощью `kubectl`.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/10.png)
+ - *Запустить микросервис phpmyadmin и подключиться к ранее созданной БД.
+   [phpmyadmin.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/files/phpmyadmin.yaml)
+   ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/05.png)
+ - *Создать сервис-типы Load Balancer и подключиться к phpmyadmin. Предоставить скриншот с публичным адресом и подключением к БД.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/11.png)
+ 
