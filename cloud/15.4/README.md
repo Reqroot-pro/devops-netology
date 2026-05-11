@@ -100,6 +100,8 @@
   ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/09.png)
  - Подключиться к кластеру с помощью `kubectl`.
   ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/10.png)
+ 
+ 
  - *Запустить микросервис phpmyadmin и подключиться к ранее созданной БД.
   ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/05.png)
    [phpmyadmin.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/files/phpmyadmin.yaml)
