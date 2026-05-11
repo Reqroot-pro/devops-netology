@@ -104,7 +104,6 @@
  
  - *Запустить микросервис phpmyadmin и подключиться к ранее созданной БД.
   ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/05.png)
-   [phpmyadmin.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/files/phpmyadmin.yaml)
+  [phpmyadmin.yaml](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/files/phpmyadmin.yaml)
  - *Создать сервис-типы Load Balancer и подключиться к phpmyadmin. Предоставить скриншот с публичным адресом и подключением к БД.
   ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.4/images/11.png)
- 
