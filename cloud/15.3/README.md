@@ -67,3 +67,35 @@ aws s3 cp index.html s3://mysuperbacketname2021
 Домашняя работа оформляется в своём Git репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
 Файл README.md должен содержать скриншоты вывода необходимых команд, а также скриншоты результатов.
 Репозиторий должен содержать тексты манифестов или ссылки на них в файле README.md.
+
+### Выполнение
+
+## Задание 1. Yandex Cloud   
+
+1. С помощью ключа в KMS необходимо зашифровать содержимое бакета:
+
+ - создать ключ в KMS;
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/01.png)
+ - с помощью ключа зашифровать содержимое бакета, созданного ранее.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/02.png)
+
+2. (Выполняется не в Terraform)* Создать статический сайт в Object Storage c собственным публичным адресом и сделать доступным по HTTPS:
+
+ - создать сертификат;
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/03.png)
+ - создать статическую страницу в Object Storage и применить сертификат HTTPS;
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/04.png)
+ - в качестве результата предоставить скриншот на страницу с сертификатом в заголовке (замочек).
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/05.png)
+
+
+
+
+1. Создать бакет Object Storage и разместить в нём файл с картинкой:
+
+ - Создать бакет в Object Storage с произвольным именем (например, _имя_студента_дата_).
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/1.png)
+ - Положить в бакет файл с картинкой.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/2.png)
+ - Сделать файл доступным из интернета.
+ ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/3.png)

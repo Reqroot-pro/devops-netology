@@ -54,11 +54,17 @@ variable "lamp_image_id" {
 variable "vpc_name" {
   description = "Имя VPC"
   type        = string
-  default     = "hw152-vpc"
+  default     = "hw153-vpc"
 }
 
 variable "subnet_cidr" {
   description = "CIDR публичной подсети"
   type        = string
   default     = "192.168.100.0/24"
+}
+
+variable "kms_key_name" {
+  description = "Name for KMS symmetric key"
+  type        = string
+  default     = "bucket-encryption-key"
 }

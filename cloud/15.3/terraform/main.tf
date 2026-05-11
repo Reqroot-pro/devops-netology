@@ -6,7 +6,7 @@ resource "yandex_vpc_network" "main" {
 }
 
 resource "yandex_vpc_subnet" "public" {
-  name           = "hw153-public"
+  name           = "hw152-public"
   zone           = var.zone
   network_id     = yandex_vpc_network.main.id
   v4_cidr_blocks = [var.subnet_cidr]
@@ -15,7 +15,7 @@ resource "yandex_vpc_subnet" "public" {
 # ===========================
 # 2. ИСПОЛЬЗУЕМ СУЩЕСТВУЮЩИЙ АККАУНТ 'devops'
 # ===========================
-# ✅ Читаем данные существующего аккаунта, НЕ создаем новый
+# Читаем данные существующего аккаунта, НЕ создаем новый
 data "yandex_iam_service_account" "devops" {
   name = "devops"
 }
@@ -31,14 +31,14 @@ resource "yandex_iam_service_account_static_access_key" "devops-key" {
 # ===========================
 resource "yandex_storage_bucket" "main" {
   bucket        = var.bucket_name
-  force_destroy = true
+  force_destroy = true 
   
-  # ✅ Шифрование через KMS
+  # Включаем серверное шифрование через KMS
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = yandex_kms_symmetric_key.bucket_key.id
         sse_algorithm     = "aws:kms"
+        kms_master_key_id = yandex_kms_symmetric_key.bucket_key.id
       }
     }
   }
@@ -66,12 +66,23 @@ resource "yandex_storage_object" "logo" {
 }
 
 # ===========================
+# 4. KMS KEY FOR BUCKET ENCRYPTION
+# ===========================
+resource "yandex_kms_symmetric_key" "bucket_key" {
+  name        = var.kms_key_name
+  description = "Symmetric key for encrypting bucket ${var.bucket_name}"
+  
+  # Опционально: период ротации ключа
+  # rotation_period = "8760h" # 1 год
+}
+
+# ===========================
 # 5. INSTANCE GROUP (LAMP)
 # ===========================
 resource "yandex_compute_instance_group" "lamp_group" {
   name               = var.instance_group_name
   folder_id          = var.folder_id
-  # ✅ Ссылаемся на существующий аккаунт devops
+  # Ссылаемся на существующий аккаунт devops
   service_account_id = data.yandex_iam_service_account.devops.id
 
   instance_template {
@@ -93,7 +104,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
     network_interface {
       subnet_ids = [yandex_vpc_subnet.public.id]
-      nat        = true
+      nat        = false
     }
 
     metadata = {
@@ -157,10 +168,10 @@ resource "yandex_lb_network_load_balancer" "main" {
 }
 
 # ===========================
-# 7. KMS KEY FOR BUCKET ENCRYPTION
+# 7. IAM PERMISSIONS FOR KMS
 # ===========================
-resource "yandex_kms_symmetric_key" "bucket_key" {
-  name              = "hw153-kms-key"
-  description       = "Key for encrypting bucket"
-  default_algorithm = "AES_256"
+resource "yandex_resourcemanager_folder_iam_member" "devops_kms_encrypter_decrypter" {
+  folder_id = var.folder_id
+  role      = "kms.keys.encrypterDecrypter"
+  member    = "serviceAccount:${data.yandex_iam_service_account.devops.id}"
 }

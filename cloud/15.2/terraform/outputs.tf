@@ -9,8 +9,9 @@ output "image_public_url" {
 }
 
 output "load_balancer_ip" {
-  description = "Публичный IP балансировщика"
-  value       = yandex_lb_network_load_balancer.main.listener.0.external_address_spec.0.address
+  value = tolist(
+    tolist(yandex_lb_network_load_balancer.main.listener)[0].external_address_spec
+  )[0].address
 }
 
 output "instance_group_name" {

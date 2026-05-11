@@ -83,7 +83,7 @@ resource "yandex_compute_instance_group" "lamp_group" {
 
     network_interface {
       subnet_ids = [yandex_vpc_subnet.public.id]
-      nat        = true
+      nat        = false
     }
 
     metadata = {
