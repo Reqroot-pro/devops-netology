@@ -87,15 +87,3 @@ aws s3 cp index.html s3://mysuperbacketname2021
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/04.png)
  - в качестве результата предоставить скриншот на страницу с сертификатом в заголовке (замочек).
  ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.3/images/05.png)
-
-
-
-
-1. Создать бакет Object Storage и разместить в нём файл с картинкой:
-
- - Создать бакет в Object Storage с произвольным именем (например, _имя_студента_дата_).
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/1.png)
- - Положить в бакет файл с картинкой.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/2.png)
- - Сделать файл доступным из интернета.
- ![](https://github.com/Reqroot-pro/devops-netology/blob/main/cloud/15.2/images/3.png)
