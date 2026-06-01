@@ -27,19 +27,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup YC CLI
-        uses: yandex-cloud/setup-yc@v1
-        with:
-          service-account-key: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
+      - name: Install YC CLI
+        run: |
+          curl -fsSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i $HOME/yc
+
+          echo "$HOME/yc/bin" >> $GITHUB_PATH
 
       - name: Verify YC CLI
         run: |
+          export PATH="$HOME/yc/bin:$PATH"
+
+          which yc
           yc version
+
+      - name: Authorize in Yandex Cloud
+        run: |
+          export PATH="$HOME/yc/bin:$PATH"
+
+          echo "${{ secrets.YC_SERVICE_ACCOUNT_KEY }}" | base64 -d > sa-key.json
+
+          yc config set service-account-key sa-key.json
           yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
 
-      - name: Configure Docker for Yandex Container Registry
-        run: |
           yc cr configure-docker
+
+          rm -f sa-key.json
 
       - name: Build Docker image
         run: |
@@ -55,6 +67,8 @@ jobs:
 
       - name: Get Kubernetes credentials
         run: |
+          export PATH="$HOME/yc/bin:$PATH"
+
           yc managed-kubernetes cluster get-credentials \
             --id $CLUSTER_ID \
             --external \
