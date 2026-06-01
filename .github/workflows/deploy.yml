@@ -9,9 +9,9 @@ on:
 
 env:
   REGISTRY: cr.yandex
-  REPOSITORY_ID: crpnhqbrs0u7vn097bu7  # реестр из вывода Terraform
+  REPOSITORY_ID: crpnhqbrs0u7vn097bu7
   IMAGE_NAME: my-app
-  CLUSTER_ID: catsekbq73ah2rp5dvuv    # кластер из вывода Terraform
+  CLUSTER_ID: catsekbq73ah2rp5dvuv
 
 jobs:
   build-and-deploy:
@@ -20,47 +20,33 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-      
+
     - name: Install YC CLI
       run: |
         curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
-        echo "${HOME}/.yandex-cloud/bin" >> $GITHUB_PATH
-        
-    - name: Authorize in Yandex Cloud
+        echo "$HOME/.yandex-cloud/bin" >> $GITHUB_PATH
+        echo "$HOME/.yandex-cloud/bin" >> $GITHUB_ENV
+
+    - name: Verify YC CLI
+      run: yc --version
+
+    - name: Authorize & Configure Docker
       run: |
-        # Декодируем ключ
         echo "${{ secrets.YC_SERVICE_ACCOUNT_KEY }}" | base64 -d > sa-key.json
-        
-        # Авторизация CLI (даёт доступ ко всем сервисам)
         yc config set service-account-key sa-key.json
         yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
-        
-        # Настраиваем Docker для работы с Container Registry
         yc cr configure-docker
-        
-        # Удаляем ключ из рабочей директории
         rm -f sa-key.json
 
     - name: Build and Push Image
       run: |
         docker build -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }} \
-                     -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest ./app
+                     -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest ./diploma-yandex-project/app
         docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }}
         docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest
 
     - name: Deploy to Kubernetes
       run: |
-        # Получаем kubeconfig кластера
-        yc managed-kubernetes cluster get-credentials \
-          --id ${{ env.CLUSTER_ID }} \
-          --external \
-          --force
-          
-        # Деплоим приложение
-        kubectl apply -f k8s-configs/app/deployment.yaml
-        
-        # Ждём обновления подов
+        yc managed-kubernetes cluster get-credentials --id ${{ env.CLUSTER_ID }} --external --force
+        kubectl apply -f ./diploma-yandex-project/k8s-configs/app/deployment.yaml
         kubectl rollout status deployment/my-app -n app --timeout=300s
