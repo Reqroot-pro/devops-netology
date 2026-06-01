@@ -1,0 +1,44 @@
+# Grafana настройки (доступ по HTTP 80)
+grafana:
+  enabled: true
+  adminPassword: "admin123"  # 🔐 Поменяйте на свой пароль!
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    className: "nginx"
+    hosts:
+      - "grafana.local"
+    path: /
+    pathType: Prefix
+
+# Prometheus настройки
+prometheus:
+  enabled: true
+  prometheusSpec:
+    retention: 7d
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+
+# Alertmanager
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 100m
+
+# Node Exporter для метрик нод
+prometheus-node-exporter:
+  enabled: true
+
+# Kube-state-metrics для метрик кластера
+kube-state-metrics:
+  enabled: true

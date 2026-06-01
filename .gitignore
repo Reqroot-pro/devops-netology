@@ -1,32 +1,36 @@
-# Секреты и ключи
-key*.json
-*.pem
-*.key
-*.secret
-*.env
+#  Секреты и ключи (рекурсивно для всего монорепо)
+**/*key*.json
+**/sa-key.json
+**/*.pem
+**/*.key
+**/*.secret
+**/*.env
+**/.vault-token
+
+#  Terraform (рекурсивно)
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/*.tfplan
+**/tfplan
+**/*.tfvars
+!terraform.tfvars.example
+**/crash.log
+**/override.tf
+**/override.tf.json
+**/*_override.tf
+**/*_override.tf.json
+
+#  Ansible
+**/.ansible/
+**/*.retry
 inventory/*
 !inventory/example.yml
 
-# Terraform
-**/.terraform/
-*.tfstate
-*.tfstate.backup
-*.tfvars
-!terraform.tfvars.example
-crash.log
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
-
-# Ansible
-.ansible/
-*.retry
-
-# IDE и OS
-.vscode/
-.idea/
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
+#  IDE, OS и кэш
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/.DS_Store
+**/Thumbs.db

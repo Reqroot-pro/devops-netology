@@ -1,0 +1,34 @@
+# Секреты и ключи
+key*.json
+*.pem
+*.key
+*.secret
+*.env
+*.tfplan
+tfplan
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!terraform.tfvars.example
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ansible
+.ansible/
+*.retry
+inventory/*
+!inventory/example.yml
+
+# IDE и OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

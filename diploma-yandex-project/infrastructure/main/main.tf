@@ -1,0 +1,25 @@
+terraform {
+  required_providers {
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = "~> 0.136"
+    }
+  }
+
+  backend "s3" {
+    endpoint = "https://storage.yandexcloud.net"
+    region   = "us-east-1"
+
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+  }
+}
+
+provider "yandex" {
+  cloud_id                 = var.cloud_id
+  folder_id                = var.folder_id
+  zone                     = "ru-central1-a"
+  service_account_key_file = "/home/devops/.config/yandex-cloud/sa-key.json"
+}
