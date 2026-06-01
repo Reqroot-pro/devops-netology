@@ -30,13 +30,11 @@ jobs:
       - name: Install YC CLI
         run: |
           curl -fsSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i $HOME/yc
-
           echo "$HOME/yc/bin" >> $GITHUB_PATH
 
       - name: Verify YC CLI
         run: |
           export PATH="$HOME/yc/bin:$PATH"
-
           which yc
           yc version
 
@@ -49,9 +47,17 @@ jobs:
           yc config set service-account-key sa-key.json
           yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
 
-          yc cr configure-docker
-
           rm -f sa-key.json
+
+      - name: Login to Yandex Container Registry
+        run: |
+          export PATH="$HOME/yc/bin:$PATH"
+
+          IAM_TOKEN=$(yc iam create-token)
+
+          echo "$IAM_TOKEN" | docker login \
+            --username iam \
+            --password-stdin $REGISTRY
 
       - name: Build Docker image
         run: |
