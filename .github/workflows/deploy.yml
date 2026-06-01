@@ -19,6 +19,9 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     permissions:
       contents: read
       packages: write
@@ -53,11 +56,7 @@ jobs:
         run: |
           export PATH="$HOME/yc/bin:$PATH"
 
-          IAM_TOKEN=$(yc container registry configure-docker)
-
-          echo "$IAM_TOKEN" | docker login \
-            --username iam \
-            --password-stdin $REGISTRY
+          yc container registry configure-docker
 
       - name: Build Docker image
         run: |
