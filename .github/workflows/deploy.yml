@@ -13,6 +13,8 @@ env:
   IMAGE_NAME: my-app
   CLUSTER_ID: catsekbq73ah2rp5dvuv
   PROJECT_DIR: diploma-yandex-project
+  # ✅ Полный путь к yc CLI (универсально для всех раннеров)
+  YC_PATH: ${{ runner.home }}/.yandex-cloud/bin
 
 jobs:
   build-and-deploy:
@@ -30,47 +32,38 @@ jobs:
     - name: Install YC CLI
       run: |
         curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
-        # ✅ Правильный способ добавить в PATH для GitHub Actions
-        echo "$HOME/.yandex-cloud/bin" >> $GITHUB_PATH
+        # Экспортируем PATH для текущей сессии
+        echo "$YC_PATH" >> $GITHUB_PATH
+        echo "PATH=$YC_PATH:$PATH" >> $GITHUB_ENV
 
     - name: Verify YC CLI
-      run: yc --version
+      run: $YC_PATH/yc --version
 
     - name: Authorize in Yandex Cloud
       run: |
-        # Декодируем ключ сервисного аккаунта
         echo "${{ secrets.YC_SERVICE_ACCOUNT_KEY }}" | base64 -d > sa-key.json
-        
-        # Авторизация
-        yc config set service-account-key sa-key.json
-        yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
-        
-        # Настраиваем Docker для работы с Yandex Container Registry
-        yc cr configure-docker
-        
-        # Удаляем ключ
+        $YC_PATH/yc config set service-account-key sa-key.json
+        $YC_PATH/yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
+        $YC_PATH/yc cr configure-docker
         rm -f sa-key.json
+      env:
+        YC_PATH: ${{ env.YC_PATH }}
 
     - name: Build and Push Docker Image
       run: |
-        # Собираем образ из правильной папки
         docker build -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }} \
                      -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest \
                      ./$PROJECT_DIR/app
-        # Пушим в реестр
         docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }}
         docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest
 
     - name: Deploy to Kubernetes
       run: |
-        # Получаем kubeconfig
-        yc managed-kubernetes cluster get-credentials \
+        $YC_PATH/yc managed-kubernetes cluster get-credentials \
           --id ${{ env.CLUSTER_ID }} \
           --external \
           --force
-          
-        # Применяем манифесты
         kubectl apply -f ./$PROJECT_DIR/k8s-configs/app/deployment.yaml
-        
-        # Ждём обновления подов
         kubectl rollout status deployment/my-app -n app --timeout=300s
+      env:
+        YC_PATH: ${{ env.YC_PATH }}
