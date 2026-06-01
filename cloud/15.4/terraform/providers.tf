@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "yandex" {
-  service_account_key_file = "/home/devops/.config/yandex-cloud/terraform-sa-key.json"
+  service_account_key_file = "/home/devops/.config/yandex-cloud/sa-key.json"
   cloud_id                 = var.cloud_id
   folder_id                = var.folder_id
   zone                     = var.zone
