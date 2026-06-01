@@ -1,70 +1,69 @@
 name: Build and Deploy
 
 on:
-push:
-branches: [ main ]
-paths:
-- 'diploma-yandex-project/**'
-workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'diploma-yandex-project/**'
+  workflow_dispatch:
 
 env:
-REGISTRY: cr.yandex
-REPOSITORY_ID: crpnhqbrs0u7vn097bu7
-IMAGE_NAME: my-app
-CLUSTER_ID: catsekbq73ah2rp5dvuv
-PROJECT_DIR: diploma-yandex-project
+  REGISTRY: cr.yandex
+  REPOSITORY_ID: crpnhqbrs0u7vn097bu7
+  IMAGE_NAME: my-app
+  CLUSTER_ID: catsekbq73ah2rp5dvuv
+  PROJECT_DIR: diploma-yandex-project
 
 jobs:
-build-and-deploy:
-runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-```
-permissions:
-  contents: read
-  packages: write
+    permissions:
+      contents: read
+      packages: write
 
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Setup YC CLI
-    uses: yandex-cloud/setup-yc@v1
-    with:
-      service-account-key: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
+      - name: Setup YC CLI
+        uses: yandex-cloud/setup-yc@v1
+        with:
+          service-account-key: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
 
-  - name: Verify YC CLI
-    run: |
-      yc version
-      yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
+      - name: Verify YC CLI
+        run: |
+          yc version
+          yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
 
-  - name: Configure Docker for Yandex Container Registry
-    run: |
-      yc cr configure-docker
+      - name: Configure Docker for Yandex Container Registry
+        run: |
+          yc cr configure-docker
 
-  - name: Build Docker image
-    run: |
-      docker build \
-        -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }} \
-        -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest \
-        ./$PROJECT_DIR/app
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }} \
+            -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest \
+            ./$PROJECT_DIR/app
 
-  - name: Push Docker image
-    run: |
-      docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }}
-      docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest
+      - name: Push Docker image
+        run: |
+          docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }}
+          docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest
 
-  - name: Get Kubernetes credentials
-    run: |
-      yc managed-kubernetes cluster get-credentials \
-        --id $CLUSTER_ID \
-        --external \
-        --force
+      - name: Get Kubernetes credentials
+        run: |
+          yc managed-kubernetes cluster get-credentials \
+            --id $CLUSTER_ID \
+            --external \
+            --force
 
-  - name: Deploy to Kubernetes
-    run: |
-      kubectl apply -f ./$PROJECT_DIR/k8s-configs/app/deployment.yaml
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f ./$PROJECT_DIR/k8s-configs/app/deployment.yaml
 
-  - name: Wait for rollout
-    run: |
-      kubectl rollout status deployment/my-app -n app --timeout=300s
-```
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/my-app -n app --timeout=300s
