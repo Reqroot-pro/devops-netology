@@ -1,82 +1,70 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'diploma-yandex-project/**'
-  workflow_dispatch:
+push:
+branches: [ main ]
+paths:
+- 'diploma-yandex-project/**'
+workflow_dispatch:
 
 env:
-  REGISTRY: cr.yandex
-  REPOSITORY_ID: crpnhqbrs0u7vn097bu7
-  IMAGE_NAME: my-app
-  CLUSTER_ID: catsekbq73ah2rp5dvuv
-  PROJECT_DIR: diploma-yandex-project
+REGISTRY: cr.yandex
+REPOSITORY_ID: crpnhqbrs0u7vn097bu7
+IMAGE_NAME: my-app
+CLUSTER_ID: catsekbq73ah2rp5dvuv
+PROJECT_DIR: diploma-yandex-project
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+build-and-deploy:
+runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+```
+permissions:
+  contents: read
+  packages: write
 
-    - name: Install YC CLI
-      run: |
-        curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
-        # Добавляем в PATH для всех последующих шагов
-        echo "$HOME/.yandex-cloud/bin" >> $GITHUB_PATH
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
 
-    - name: Verify YC CLI
-      run: |
-        export PATH="$HOME/.yandex-cloud/bin:$PATH"
-        yc --version
+  - name: Setup YC CLI
+    uses: yandex-cloud/setup-yc@v1
+    with:
+      service-account-key: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
 
-    - name: Authorize in Yandex Cloud
-      run: |
-        export PATH="$HOME/.yandex-cloud/bin:$PATH"
-        
-        # Декодируем ключ сервисного аккаунта
-        echo "${{ secrets.YC_SERVICE_ACCOUNT_KEY }}" | base64 -d > sa-key.json
-        
-        # Авторизация
-        yc config set service-account-key sa-key.json
-        yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
-        
-        # Настраиваем Docker для работы с Yandex Container Registry
-        yc cr configure-docker
-        
-        # Удаляем ключ
-        rm -f sa-key.json
+  - name: Verify YC CLI
+    run: |
+      yc version
+      yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
 
-    - name: Build and Push Docker Image
-      run: |
-        export PATH="$HOME/.yandex-cloud/bin:$PATH"
-        
-        docker build -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }} \
-                     -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest \
-                     ./$PROJECT_DIR/app
-        docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }}
-        docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest
+  - name: Configure Docker for Yandex Container Registry
+    run: |
+      yc cr configure-docker
 
-    - name: Deploy to Kubernetes
-      run: |
-        export PATH="$HOME/.yandex-cloud/bin:$PATH"
-        
-        # Получаем kubeconfig
-        yc managed-kubernetes cluster get-credentials \
-          --id ${{ env.CLUSTER_ID }} \
-          --external \
-          --force
-          
-        # Применяем манифесты
-        kubectl apply -f ./$PROJECT_DIR/k8s-configs/app/deployment.yaml
-        
-        # Ждём обновления подов
-        kubectl rollout status deployment/my-app -n app --timeout=300s
+  - name: Build Docker image
+    run: |
+      docker build \
+        -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }} \
+        -t $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest \
+        ./$PROJECT_DIR/app
+
+  - name: Push Docker image
+    run: |
+      docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:${{ github.sha }}
+      docker push $REGISTRY/$REPOSITORY_ID/$IMAGE_NAME:latest
+
+  - name: Get Kubernetes credentials
+    run: |
+      yc managed-kubernetes cluster get-credentials \
+        --id $CLUSTER_ID \
+        --external \
+        --force
+
+  - name: Deploy to Kubernetes
+    run: |
+      kubectl apply -f ./$PROJECT_DIR/k8s-configs/app/deployment.yaml
+
+  - name: Wait for rollout
+    run: |
+      kubectl rollout status deployment/my-app -n app --timeout=300s
+```
