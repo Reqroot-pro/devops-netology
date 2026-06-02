@@ -1,17 +1,34 @@
 # Grafana настройки (доступ по HTTP 80)
 grafana:
   enabled: true
-  adminPassword: "admin123"  # 🔐 Поменяйте на свой пароль!
+  adminPassword: "admin123"
+  
+  # Сервис
   service:
     type: ClusterIP
     port: 80
+  
+  # Ingress — ВАЖНО: точная структура для этого чарта
   ingress:
     enabled: true
-    className: "nginx"
+    ingressClassName: "ingress-nginx"
+    
+    # Аннотации
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+    
+    # Хосты
     hosts:
-      - "grafana.local"
+      - grafana.local
+    # Путь
     path: /
     pathType: Prefix
+    
+    # TLS (если понадобится)
+    # tls:
+    #   - secretName: grafana-tls
+    #     hosts:
+    #       - grafana.local
 
 # Prometheus настройки
 prometheus:

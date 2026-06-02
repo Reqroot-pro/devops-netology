@@ -1,30 +1,26 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Запуск полного деплоя..."
+echo "Полный деплой проекта..."
 
-# 1. Ingress
-echo "🌐 Установка ingress-nginx..."
-cd k8s-configs/ingress && bash install.sh && cd ../..
+# 1. Ingress-контроллер
+echo "Установка ingress-nginx..."
+bash k8s-configs/ingress/install.sh
 
 # 2. Мониторинг
-echo "📊 Установка мониторинга..."
-cd k8s-configs/monitoring && bash install.sh && cd ../..
+echo "Установка мониторинга..."
+bash k8s-configs/monitoring/reinstall.sh
 
 # 3. Приложение
-echo "🐳 Деплой приложения..."
+echo "Деплой приложения..."
 kubectl apply -f k8s-configs/app/deployment.yaml
-
-# 4. Ждём готовности
-echo "⏳ Ожидание готовности подов..."
 kubectl wait --for=condition=ready pod -l app=my-app -n app --timeout=120s
 
 echo ""
-echo "✅ ВСЁ ГОТОВО!"
+echo "ВСЁ ГОТОВО!"
 echo ""
-echo "🔗 Ссылки:"
-echo "   Grafana: http://grafana.local (admin/admin123)"
-echo "   App:     http://app.local"
+echo "Ссылки (добавь в /etc/hosts):"
+echo "   $(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}') app.local grafana.local"
 echo ""
-echo "🔧 Для локального тестирования добавьте в /etc/hosts:"
-echo "   $(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}') grafana.local app.local"
+echo "Приложение: http://app.local"
+echo "Grafana:    http://grafana.local (admin/admin123)"
