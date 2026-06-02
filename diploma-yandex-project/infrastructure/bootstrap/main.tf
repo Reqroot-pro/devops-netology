@@ -45,12 +45,7 @@ resource "yandex_iam_service_account_static_access_key" "terraform_sa_key" {
 # Бакет для хранения state
 resource "yandex_storage_bucket" "tf_state" {
   bucket = "tf-state-${random_id.bucket_suffix.hex}"
-
-  grant {
-    type        = "CanonicalUser"
-    id          = yandex_iam_service_account.terraform.id
-    permissions = ["FULL_CONTROL"]
-  }
+  force_destroy = true
 
   # Запрет публичного доступа
   anonymous_access_flags {
@@ -61,6 +56,16 @@ resource "yandex_storage_bucket" "tf_state" {
 
   versioning {
     enabled = true
+  }
+}
+
+resource "yandex_storage_bucket_grant" "tf_state_sa_grant" {
+  bucket = yandex_storage_bucket.tf_state.bucket
+
+  grant {
+    type        = "CanonicalUser"
+    id          = yandex_iam_service_account.terraform.id
+    permissions = ["FULL_CONTROL"]
   }
 }
 
