@@ -1,9 +1,17 @@
 controller:
   replicaCount: 2
+  
+  # Сервис должен быть LoadBalancer с аннотациями ЯО
   service:
     type: LoadBalancer
+    externalTrafficPolicy: Local
     annotations:
-      yc.cni.yandex.io/lb-type: external
+      # Яндекс.Облако: внешний балансировщик
+      service.beta.kubernetes.io/yc-load-balancer-type: "external"
+      # Яндекс.Облако: тип адреса (IPv4)
+      service.beta.kubernetes.io/yc-load-balancer-ipv4-address-type: "ipv4"
+  
+  # Ресурсы для продакшена
   resources:
     requests:
       cpu: 100m
@@ -11,6 +19,17 @@ controller:
     limits:
       cpu: 250m
       memory: 256Mi
+  
+  # Конфиг для корректной передачи заголовков
   config:
     use-forwarded-headers: "true"
     compute-full-forwarded-for: "true"
+    proxy-buffer-size: "16k"
+  
+  # Логирование для отладки
+  admissionWebhooks:
+    enabled: false
+  
+  # Публикуем только порт 80 для демо (443 можно добавить позже)
+  publishService:
+    enabled: true

@@ -7,24 +7,30 @@ grafana:
   service:
     type: ClusterIP
     port: 80
+    targetPort: 3000
   
-  # Ingress — ВАЖНО: точная структура для этого чарта
   ingress:
     enabled: true
     ingressClassName: "ingress-nginx"
     
-    # Аннотации
+    # Аннотации для Яндекс.Облака + Nginx
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"  # ← Отключаем HTTPS-редирект для демо
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     
     # Хосты
     hosts:
       - grafana.local
+    
     # Путь
     path: /
     pathType: Prefix
     
-    # TLS (если понадобится)
+    # Явно указываем порт сервиса
+    servicePort: 80
+    
+    # TLS (опционально, для продакшена)
     # tls:
     #   - secretName: grafana-tls
     #     hosts:
