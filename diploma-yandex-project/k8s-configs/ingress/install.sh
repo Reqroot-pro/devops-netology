@@ -16,5 +16,5 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
   -f "$SCRIPT_DIR/nginx-values.yaml" \
   --wait --timeout 5m
 
-echo "✅ Ingress-контроллер установлен!"
-echo "🔍 Внешний IP: $(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+echo "Ingress-контроллер установлен!"
+echo "Внешний IP: $(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"

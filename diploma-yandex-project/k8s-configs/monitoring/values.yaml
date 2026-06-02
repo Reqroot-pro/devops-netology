@@ -11,7 +11,7 @@ grafana:
   
   ingress:
     enabled: true
-    ingressClassName: "ingress-nginx"
+    ingressClassName: "nginx"
     
     # Аннотации для Яндекс.Облака + Nginx
     annotations:
