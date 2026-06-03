@@ -144,7 +144,34 @@
 
 ### Выполнение
 
-## Задание 1.
+1. # Подготовка окружения
+cd ../bootstrap
+terraform init
+terraform apply
 
-1. Создать пустую VPC. Выбрать зону. 
+Получаем ключи 
+terraform output -raw access_key
+terraform output -raw secret_key
+
+
+# Вписываем сюда и делаем init
+cd ../main
+terraform init \
+  -backend-config="bucket=tf-state-xxxxxxxx" \
+  -backend-config="key=infra/terraform.tfstate" \
+  -backend-config="access_key=xxxxxxxxxxxx" \
+  -backend-config="secret_key=xxxxxxxxxxxxxxxxxxxx"
+
+terraform apply
+
+
+#После успешного apply получаем kubeconfig для доступа к кластеру
+yc managed-kubernetes cluster get-credentials \
+  --id xxxxxxxxxxxxxxx \
+  --external \
+  --force
+
+Проверяем статус нод
+kubectl get nodes
+
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/01.png)
