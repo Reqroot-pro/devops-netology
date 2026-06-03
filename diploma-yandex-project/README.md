@@ -175,3 +175,7 @@ yc managed-kubernetes cluster get-credentials \
 kubectl get nodes
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/01.png)
+
+
+
+

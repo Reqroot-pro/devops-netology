@@ -1,34 +1,39 @@
-# Секреты и ключи
+# ==========================================
+# СЕКРЕТЫ И КЛЮЧИ
+# ==========================================
 key*.json
 *.pem
 *.key
 *.secret
 *.env
-*.tfplan
-tfplan
 
-# Terraform
+sa-key.json
+crash.log
+
+# ==========================================
+#  TERRAFORM
+# ==========================================
 **/.terraform/
 *.tfstate
 *.tfstate.backup
-*.tfvars
-!terraform.tfvars.example
-crash.log
+*.tfvars.lock
+
+*.secret.tfvars       
+*.auto.tfvars
+
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+.plan
 
-# Ansible
-.ansible/
-*.retry
-inventory/*
-!inventory/example.yml
-
-# IDE и OS
+# ==========================================
+#  IDE & OS
+# ==========================================
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 .DS_Store
 Thumbs.db
