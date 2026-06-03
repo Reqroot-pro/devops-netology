@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - 'diploma-yandex-project/**'
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - 'LICENSE'
   workflow_dispatch:
 
 env:
