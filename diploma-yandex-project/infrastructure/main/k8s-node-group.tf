@@ -3,7 +3,6 @@ resource "yandex_kubernetes_node_group" "workers" {
   cluster_id = yandex_kubernetes_cluster.k8s.id
   version    = "1.33"
 
-  # ✅ Только зоны (subnet_id убран)
   allocation_policy {
     location { zone = "ru-central1-a" }
     location { zone = "ru-central1-b" }
@@ -29,7 +28,7 @@ resource "yandex_kubernetes_node_group" "workers" {
     }
 
     network_interface {
-      # ✅ subnet_ids указаны только здесь
+      #subnet_ids указаны только здесь
       subnet_ids = [
         yandex_vpc_subnet.k8s["ru-central1-a"].id,
         yandex_vpc_subnet.k8s["ru-central1-b"].id,
