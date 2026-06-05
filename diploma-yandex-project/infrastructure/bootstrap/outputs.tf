@@ -11,3 +11,7 @@ output "secret_key" {
   value     = yandex_iam_service_account_static_access_key.terraform_sa_key.secret_key
   sensitive = true
 }
+
+output "terraform_sa_id" {
+  value = yandex_iam_service_account.terraform.id
+}

@@ -10,6 +10,9 @@ terraform {
     endpoint = "https://storage.yandexcloud.net"
     region   = "us-east-1"
 
+    bucket = var.state_bucket
+    key    = var.state_key
+
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_region_validation      = true
@@ -21,5 +24,5 @@ provider "yandex" {
   cloud_id                 = var.cloud_id
   folder_id                = var.folder_id
   zone                     = "ru-central1-a"
-  service_account_key_file = "/home/devops/.config/yandex-cloud/sa-key.json"
+  service_account_key_file = var.sa_key_file
 }

@@ -149,12 +149,18 @@ cd ../bootstrap
 terraform init
 terraform apply
 
+
+
+Поскольку bootstrap и main находятся в разных папках 
+Выполняем следующие действия:
+Запускаем terraform apply -auto-approve в папке bootstrap.
+Копируем выведенные значения (bucket_name, access_key, secret_key).
 Получаем ключи 
 terraform output -raw access_key
 terraform output -raw secret_key
 
+# Вставляем их в переменные в папке main (в terraform.tfvars или при вызове init).
 
-# Вписываем сюда и делаем init
 cd ../main
 terraform init \
   -backend-config="bucket=tf-state-xxxxxxxx" \
@@ -162,10 +168,10 @@ terraform init \
   -backend-config="access_key=xxxxxxxxxxxx" \
   -backend-config="secret_key=xxxxxxxxxxxxxxxxxxxx"
 
-terraform apply
+terraform apply -auto-approve
 
 
-#После успешного apply получаем kubeconfig для доступа к кластеру
+# После успешного apply получаем kubeconfig для доступа к кластеру
 yc managed-kubernetes cluster get-credentials \
   --id xxxxxxxxxxxxxxx \
   --external \

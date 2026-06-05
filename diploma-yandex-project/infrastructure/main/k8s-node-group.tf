@@ -28,7 +28,6 @@ resource "yandex_kubernetes_node_group" "workers" {
     }
 
     network_interface {
-      #subnet_ids указаны только здесь
       subnet_ids = [
         yandex_vpc_subnet.k8s["ru-central1-a"].id,
         yandex_vpc_subnet.k8s["ru-central1-b"].id,

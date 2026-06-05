@@ -5,7 +5,7 @@ resource "yandex_container_registry" "app" {
 resource "yandex_container_registry_iam_binding" "pusher" {
   registry_id = yandex_container_registry.app.id
   role        = "container-registry.images.pusher"
-  members     = ["serviceAccount:${yandex_iam_service_account.k8s_master.id}"]
+  members     = ["serviceAccount:${var.ci_cd_sa_id}"]
 }
 
 resource "yandex_container_registry_iam_binding" "puller" {

@@ -15,7 +15,7 @@ provider "yandex" {
   cloud_id                 = var.cloud_id
   folder_id                = var.folder_id
   zone                     = "ru-central1-a"
-  service_account_key_file = "/home/devops/.config/yandex-cloud/sa-key.json"
+  service_account_key_file = var.sa_key_file
 }
 
 # Случайный суффикс для имени бакета
