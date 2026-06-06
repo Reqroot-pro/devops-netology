@@ -7,10 +7,9 @@ on:
     tags: ['v*']
     paths:
       - 'diploma-yandex-project/**'
-    paths-ignore:
-      - '**.md'
-      - '.gitignore'
-      - 'LICENSE'
+      - '!diploma-yandex-project/**/*.md'
+      - '!diploma-yandex-project/.gitignore'
+      - '!diploma-yandex-project/LICENSE'
   workflow_dispatch:
 
 env:
