@@ -200,7 +200,9 @@ bash deploy-all.sh
 
 
 
-
+9. # Полное удаление одним действием
+/infrastructure/main
+bash destroy.sh
 
 
 
