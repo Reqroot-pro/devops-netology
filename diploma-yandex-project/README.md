@@ -182,12 +182,12 @@ kubectl get nodes
 в файле .github/workflows/deploy.yml строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............
 в файле k8s-configs/app/deployment.yaml  строка image:cr.yandex/crpjdc............
  
-5. В Actions добавляем секреты
+5. # В Actions добавляем секреты
 
 YC_FOLDER_ID
 YC_SERVICE_ACCOUNT_KEY
 
-6. # Делаем пуш в гит
+6. # Делаем пуш в гит и ждем завершения пайплайна
 git add .
 git commit -m "CI/CD"
 git push origin main
@@ -196,8 +196,10 @@ git push origin main
 bash deploy-all.sh
 
 8. # Добавляем полученный Внешний IP в /etc/hosts
-
 <IP> app.local grafana.local
+
+
+
 
 
 

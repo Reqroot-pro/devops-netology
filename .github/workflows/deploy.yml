@@ -10,6 +10,7 @@ on:
       - '!diploma-yandex-project/**/*.md'
       - '!diploma-yandex-project/.gitignore'
       - '!diploma-yandex-project/LICENSE'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 env:
