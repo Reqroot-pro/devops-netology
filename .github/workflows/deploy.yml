@@ -92,7 +92,7 @@ jobs:
           
           # 4. Обновляем образ в деплойменте с правильным тегом
           kubectl set image deployment/my-app \
-            nginx=${{ env.REGISTRY }}/${{ env.REPOSITORY_ID }}/${{ env.IMAGE_NAME }}:$IMAGE_TAG \
+            nginx=${{ env.REGISTRY }}/${{ env.REPOSITORY_ID }}/${{ env.IMAGE_NAME }}:${{ github.sha }} \
             -n app
           
           # 5. Ждём завершения обновления подов
