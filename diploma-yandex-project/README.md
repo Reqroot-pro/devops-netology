@@ -198,12 +198,24 @@ bash deploy-all.sh
 8. # Добавляем полученный Внешний IP в /etc/hosts
 <IP> app.local grafana.local
 
+9. # Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
+Меняем название заголовка в строке <<h1>🚀 Приложение работает! V2</h1> у файла index.html
+Пушим изменения, ждем запуска деплоя и проверяем изменения в приложении app.local
+git add .
+git commit -m "html v2"
+git push origin main
+
+10. # Проверям работу метрик
+kubectl get pods -n monitoring
+helm list -n monitoring
+kubectl get svc -n monitoring
 
 
-9. # Полное удаление одним действием
-/infrastructure/main
+Далее заходим в админку grafana.local и проверяем дашборд 
+Dashboards > Kubernetes / Compute Resources / Cluster
+
+11. # Полное удаление одним действием
 bash destroy.sh
-
 
 
 
