@@ -182,18 +182,20 @@ kubectl get nodes
 в файле .github/workflows/deploy.yml строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............
 в файле k8s-configs/app/deployment.yaml  строка image:cr.yandex/crpjdc............
  
+5. В Actions добавляем секреты
 
-5. # Делаем пуш в гит
-cd ~/devops-netology/diploma-yandex-project
+YC_FOLDER_ID
+YC_SERVICE_ACCOUNT_KEY
 
+6. # Делаем пуш в гит
 git add .
 git commit -m "CI/CD"
 git push origin main
 
-6. # Запускаем скрипт deploy-all.sh
+7. # Запускаем скрипт deploy-all.sh
 bash deploy-all.sh
 
-7. # Добавляем полученный Внешний IP в /etc/hosts
+8. # Добавляем полученный Внешний IP в /etc/hosts
 
 <IP> app.local grafana.local
 
