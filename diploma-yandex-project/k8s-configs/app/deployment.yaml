@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: cr.yandex/crpm9pqss19nnotip8kc/my-app:latest
+        image: cr.yandex/crpjdcinl42hhu1djf3m/my-app:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80

@@ -147,14 +147,11 @@
 1. # Подготовка окружения
 cd ../bootstrap
 terraform init
-terraform apply
+terraform apply -auto-approve
 
-
-
-Поскольку bootstrap и main находятся в разных папках 
+2. # Поскольку bootstrap и main находятся в разных папках 
 Выполняем следующие действия:
-Запускаем terraform apply -auto-approve в папке bootstrap.
-Копируем выведенные значения (bucket_name, access_key, secret_key).
+Копируем выведенные значения bucket_name
 Получаем ключи 
 terraform output -raw access_key
 terraform output -raw secret_key
@@ -163,22 +160,67 @@ terraform output -raw secret_key
 
 cd ../main
 terraform init \
-  -backend-config="bucket=tf-state-xxxxxxxx" \
+  -backend-config="bucket=tf-state-........" \
   -backend-config="key=infra/terraform.tfstate" \
-  -backend-config="access_key=xxxxxxxxxxxx" \
-  -backend-config="secret_key=xxxxxxxxxxxxxxxxxxxx"
+  -backend-config="access_key=YCAJEv.............." \
+  -backend-config="secret_key=YCPUeq..............."
 
 terraform apply -auto-approve
 
 
-# После успешного apply получаем kubeconfig для доступа к кластеру
+3. # После успешного apply вписываем cluster_id и получаем kubeconfig для доступа к кластеру
 yc managed-kubernetes cluster get-credentials \
-  --id xxxxxxxxxxxxxxx \
+  --id cat105........... \
   --external \
   --force
 
 Проверяем статус нод
 kubectl get nodes
+
+
+4. # Добавляем вывод из предыдущего outputs 
+в файле .github/workflows/deploy.yml строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............
+в файле k8s-configs/app/deployment.yaml  строка image:cr.yandex/crpjdc............
+ 
+
+5. # Делаем пуш в гит
+cd ~/devops-netology/diploma-yandex-project
+
+git add .
+git commit -m "CI/CD"
+git push origin main
+
+6. # Запускаем скрипт deploy-all.sh
+bash deploy-all.sh
+
+7. # Добавляем полученный Внешний IP в /etc/hosts
+
+<IP> app.local grafana.local
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🗑️ Полное удаление инфраструктуры
+
+Поскольку Yandex Cloud запрещает удаление непустых реестров, а Terraform управляет только инфраструктурой (не содержимым реестра), процесс удаления разделён на два этапа:
+
+1.  Очистка реестра от образов через `yc` CLI.
+2.  Удаление инфраструктуры через `terraform destroy`.
+
+Для автоматизации используйте скрипт:
+```bash
+cd infrastructure/main
+./destroy.sh
+
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/01.png)
 
