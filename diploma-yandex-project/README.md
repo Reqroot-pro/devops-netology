@@ -144,6 +144,9 @@
 
 # Выполнение
 
+## 0. Репозиторий
+ [diploma-yandex-project](https://github.com/Reqroot-pro/devops-netology/tree/main/diploma-yandex-project)
+
 ## 1. Подготовка окружения
 ```
 cd diploma-yandex-project/infrastructure/bootstrap/
