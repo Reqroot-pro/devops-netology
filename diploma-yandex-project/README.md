@@ -200,11 +200,11 @@ kubectl get nodes
 
 
 ## 4.1 Добавляем вывод из предыдущего outputs bootstrap 
-в файле infrastructure/main/terraform.tfvars  в строку ci_cd_sa_id = ............  
+В файле infrastructure/main/terraform.tfvars  в строку ci_cd_sa_id = ............  
 
 ## 4.2 Добавляем вывод из предыдущего outputs main 
-в файле .github/workflows/deploy.yml в строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............  
-в файле k8s-configs/app/deployment.yaml  в строку image:cr.yandex/crpjdc............ 
+В файле .github/workflows/deploy.yml прописываем данные в строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............  
+В файле k8s-configs/app/deployment.yaml прописываем данные в строку image:cr.yandex/crpjdc............ 
  
 
 ## 5. В Actions добавляем секреты
@@ -231,8 +231,8 @@ bash deploy-all.sh
 http://51.250.42.5/  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
 
-http://51.250.42.5/grafana  
 В файле k8s-configs/monitoring/values.yaml в строке root_url: указываем полученный ip ingress  
+http://51.250.42.5/grafana  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/09.png)  
 
 
