@@ -149,7 +149,7 @@
 
 ## 1. Подготовка окружения
 ```
-cd diploma-yandex-project/infrastructure/bootstrap/
+.../diploma-yandex-project/infrastructure/bootstrap/
 terraform init
 terraform apply -auto-approve
 ```
@@ -168,7 +168,7 @@ terraform output -raw secret_key
 
 ### Вставляем их в переменные  при вызове init
 ```
-cd ../main
+.../diploma-yandex-project/infrastructure/main
 terraform init \
   -backend-config="bucket=tf-state-......." \
   -backend-config="key=infra/terraform.tfstate" \
@@ -200,11 +200,11 @@ kubectl get nodes
 
 
 ## 4.1 Добавляем вывод из предыдущего outputs bootstrap 
-В файле infrastructure/main/terraform.tfvars  в строку ci_cd_sa_id = ............  
+В файле .../diploma-yandex-project/infrastructure/main/terraform.tfvars  в строку ci_cd_sa_id = ............  
 
 ## 4.2 Добавляем вывод из предыдущего outputs main 
 В файле .github/workflows/deploy.yml прописываем данные в строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............  
-В файле k8s-configs/app/deployment.yaml прописываем данные в строку image:cr.yandex/crpjdc............ 
+В файле .../diploma-yandex-project/k8s-configs/app/deployment.yaml прописываем данные в строку image:cr.yandex/crpjdc............ 
  
 
 ## 5. В Actions добавляем секреты
@@ -225,15 +225,23 @@ git push origin main
 
 ## 7.1 Запускаем скрипт install.sh для установки ingress-контроллера
 ```
-cd diploma-yandex-project/k8s-configs/ingress
+.../diploma-yandex-project/k8s-configs/ingress
 bash install.sh
 ```
 
 
 ## 7.2 IP ingress из предыдущего вывода 
-В файле k8s-configs/monitoring/values.yaml в строке root_url: указываем полученный ip ingress  
+В файле .../diploma-yandex-project/k8s-configs/monitoring/values.yaml в строке root_url: указываем полученный ip ingress  
 
-## 8. Проверяем доступность приложения и мониторинга по порту 80
+
+## 8.1 Деплоим приложение и мониторинг (запускаем скрипт deploy-all.sh)
+```
+.../diploma-yandex-project/k8s-configs/
+bash deploy-all.sh
+```
+
+
+## 8.2 Проверяем доступность приложения и мониторинга по порту 80
 http://51.250.42.5/  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
 
@@ -274,7 +282,7 @@ Dashboards > Kubernetes / Compute Resources / Cluster
 
 ## 11. Полное удаление одним действием
 ```
-cd diploma-yandex-project/
+.../diploma-yandex-project/
 bash destroy.sh
 ```
 
