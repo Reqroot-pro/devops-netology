@@ -9,12 +9,10 @@ grafana:
     port: 80
     targetPort: 3000
 
-  grafana.ini:
-    server:
-      # Указываем полный URL с подпутём
-      root_url: "http://%(domain)s/grafana/"
-      # Включаем работу из подпути
-      serve_from_sub_path: true  
+  env:
+    GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
+    GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+    GF_SERVER_HTTP_PORT: "80"
   
   ingress:
     enabled: true
