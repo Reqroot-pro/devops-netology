@@ -181,12 +181,14 @@ terraform apply -auto-approve
 ## 3. После успешного apply вписываем cluster_id и получаем kubeconfig для доступа к кластеру
 ```
 yc managed-kubernetes cluster get-credentials \
-  --id catssnmp27ip0bvj4gad \
+  --id cata............ \
   --external \
   --force
 ```
+
 Проверяем статус нод  
 kubectl get nodes  
+
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/05.png)  
 
 
@@ -201,7 +203,7 @@ kubectl get nodes
 ## 5. В Actions добавляем секреты
 YC_FOLDER_ID  
 YC_SERVICE_ACCOUNT_KEY  
-![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/06.png) 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/06.png)  
 
 
 ## 6. Делаем пуш в гит и ждем завершения пайплайна
@@ -210,17 +212,21 @@ git add .
 git commit -m "CI/CD"
 git push origin main
 ```
-![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png) 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png)  
 
 ## 7. Запускаем скрипт deploy-all.sh
+cd diploma-yandex-project/  
 bash deploy-all.sh  
 
 ## 8. Добавляем полученный Внешний IP в /etc/hosts
 <IP> app.local grafana.local  
 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png)  
+
 ## 9. Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
 Меняем название заголовка в строке:  
-<h1>🚀 Приложение работает! V2</h1> у файла index.html  
+<h1>🚀 Приложение работает!  V2</h1> у файла index.html  
 
 Пушим изменения, ждем запуска деплоя и проверяем изменения в приложении app.local  
 git add .  
