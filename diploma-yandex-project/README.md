@@ -227,11 +227,13 @@ bash deploy-all.sh
 ## 8. Проверяем доступность приложения и мониторинга по порту 80
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
+
+В файле k8s-configs/monitoring/values.yaml в строке root_url: указываем полученный ip ingress  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/09.png)  
 
 ## 9. Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
 Меняем название заголовка в строке:  
-<h1>🚀 Приложение работает! V1</h1> у файла index.html  
+<h1>🚀 Приложение работает! V2</h1> у файла index.html  
 
 Пушим изменения, ждем запуска деплоя и проверяем изменения в приложении app.local  
 ```

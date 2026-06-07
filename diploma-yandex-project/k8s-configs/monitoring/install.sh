@@ -10,7 +10,7 @@ helm repo update
 
 kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 
-helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
+helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
   -n monitoring \
   -f "$SCRIPT_DIR/values.yaml" \
   --wait --timeout 10m
