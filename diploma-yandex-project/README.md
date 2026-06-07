@@ -144,9 +144,9 @@
 
 # Выполнение
 
- ## 1. Подготовка окружения
+## 1. Подготовка окружения
 ```
-cd ../bootstrap
+cd diploma-yandex-project/infrastructure/bootstrap/
 terraform init
 terraform apply -auto-approve
 ```
@@ -154,7 +154,7 @@ terraform apply -auto-approve
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/02.png)  
 
 
- ## 2. Поскольку bootstrap и main находятся в разных папках 
+## 2. Поскольку bootstrap и main находятся в разных папках 
 Выполняем следующие действия:  
 Копируем полученные значения bucket_name  
 Получаем ключи:   
@@ -178,7 +178,7 @@ terraform apply -auto-approve
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/04.png)  
 
 
- ## 3. После успешного apply вписываем cluster_id и получаем kubeconfig для доступа к кластеру
+## 3. После успешного apply вписываем cluster_id и получаем kubeconfig для доступа к кластеру
 ```
 yc managed-kubernetes cluster get-credentials \
   --id catssnmp27ip0bvj4gad \
@@ -190,18 +190,21 @@ kubectl get nodes
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/05.png)  
 
 
- ## 4. Добавляем вывод из предыдущих outputs 
+## 4.1 Добавляем вывод из предыдущего outputs bootstrap 
+в файле infrastructure/main/terraform.tfvars  в строку ci_cd_sa_id = ............  
+
+## 4.2 Добавляем вывод из предыдущего outputs main 
 в файле .github/workflows/deploy.yml в строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............  
-в файле k8s-configs/app/deployment.yaml  в строкау image:cr.yandex/crpjdc............  
+в файле k8s-configs/app/deployment.yaml  в строку image:cr.yandex/crpjdc............ 
  
 
- ## 5. В Actions добавляем секреты
+## 5. В Actions добавляем секреты
 YC_FOLDER_ID  
 YC_SERVICE_ACCOUNT_KEY  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/06.png) 
 
 
- ## 6. Делаем пуш в гит и ждем завершения пайплайна
+## 6. Делаем пуш в гит и ждем завершения пайплайна
 ```
 git add .
 git commit -m "CI/CD"
@@ -209,13 +212,13 @@ git push origin main
 ```
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png) 
 
- ## 7. Запускаем скрипт deploy-all.sh
+## 7. Запускаем скрипт deploy-all.sh
 bash deploy-all.sh  
 
- ## 8. Добавляем полученный Внешний IP в /etc/hosts
+## 8. Добавляем полученный Внешний IP в /etc/hosts
 <IP> app.local grafana.local  
 
- ## 9. Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
+## 9. Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
 Меняем название заголовка в строке:  
 <h1>🚀 Приложение работает! V2</h1> у файла index.html  
 
@@ -224,7 +227,7 @@ git add .
 git commit -m "html v2"  
 git push origin main  
 
- ## 10. Проверям работу метрик
+## 10. Проверям работу метрик
 kubectl get pods -n monitoring  
 helm list -n monitoring  
 kubectl get svc -n monitoring  

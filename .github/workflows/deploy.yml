@@ -15,9 +15,9 @@ on:
 
 env:
   REGISTRY: cr.yandex
-  REPOSITORY_ID: crpjdcinl42hhu1djf3m
+  REPOSITORY_ID: crpotgbqffcq87shqul2
   IMAGE_NAME: my-app
-  CLUSTER_ID: cat105ev716qp55c4ool
+  CLUSTER_ID: cataegug7ndpo2qr9rlh
   PROJECT_DIR: diploma-yandex-project
 
 jobs:
