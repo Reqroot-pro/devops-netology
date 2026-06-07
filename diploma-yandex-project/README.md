@@ -221,17 +221,22 @@ git push origin main
 ```
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png)  
 
-## 7. Запускаем скрипт deploy-all.sh
+
+
+## 7.1 Запускаем скрипт install.sh для установки ingress-контроллера
 ```
-cd diploma-yandex-project/
-bash deploy-all.sh
+cd diploma-yandex-project/k8s-configs/ingress
+bash install.sh
 ```
+
+
+## 7.2 IP ingress из предыдущего вывода 
+В файле k8s-configs/monitoring/values.yaml в строке root_url: указываем полученный ip ingress  
 
 ## 8. Проверяем доступность приложения и мониторинга по порту 80
 http://51.250.42.5/  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
 
-В файле k8s-configs/monitoring/values.yaml в строке root_url: указываем полученный ip ingress  
 http://51.250.42.5/grafana  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/09.png)  
 

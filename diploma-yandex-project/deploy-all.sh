@@ -3,15 +3,11 @@ set -e
 
 echo "Полный деплой проекта"
 
-# 1. Ingress-контроллер
-echo "[1/3] Установка ingress-nginx"
-bash k8s-configs/ingress/install.sh
-
-# 2. Мониторинг
+# 1. Мониторинг
 echo "[2/3] Установка мониторинга"
 bash k8s-configs/monitoring/install.sh
 
-# 3. Приложение
+# 2. Приложение
 echo "[3/3] Деплой приложения"
 kubectl apply -f k8s-configs/app/deployment.yaml
 kubectl wait --for=condition=ready pod -l app=my-app -n app --timeout=120s
