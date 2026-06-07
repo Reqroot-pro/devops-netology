@@ -142,105 +142,104 @@
 7. Все репозитории рекомендуется хранить на одном ресурсе (github, gitlab)
 
 
-### Выполнение
+# Выполнение
 
-1. # Подготовка окружения
+ ## 1. Подготовка окружения
+```
 cd ../bootstrap
 terraform init
 terraform apply -auto-approve
+```
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/01.png)  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/02.png)  
 
-2. # Поскольку bootstrap и main находятся в разных папках 
-Выполняем следующие действия:
-Копируем выведенные значения bucket_name
-Получаем ключи 
+
+ ## 2. Поскольку bootstrap и main находятся в разных папках 
+Выполняем следующие действия:  
+Копируем полученные значения bucket_name  
+Получаем ключи:   
+```
 terraform output -raw access_key
 terraform output -raw secret_key
+```
 
-# Вставляем их в переменные в папке main (в terraform.tfvars или при вызове init).
-
+### Вставляем их в переменные  при вызове init
+```
 cd ../main
 terraform init \
-  -backend-config="bucket=tf-state-........" \
+  -backend-config="bucket=tf-state-......." \
   -backend-config="key=infra/terraform.tfstate" \
-  -backend-config="access_key=YCAJEv.............." \
-  -backend-config="secret_key=YCPUeq..............."
-
+  -backend-config="access_key=YCAJE..........." \
+  -backend-config="secret_key=YCNBN.................."
+```
 terraform apply -auto-approve
 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/03.png)  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/04.png)  
 
-3. # После успешного apply вписываем cluster_id и получаем kubeconfig для доступа к кластеру
+
+ ## 3. После успешного apply вписываем cluster_id и получаем kubeconfig для доступа к кластеру
+```
 yc managed-kubernetes cluster get-credentials \
-  --id cat105........... \
+  --id catssnmp27ip0bvj4gad \
   --external \
   --force
+```
+Проверяем статус нод  
+kubectl get nodes  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/05.png)  
 
-Проверяем статус нод
-kubectl get nodes
 
-
-4. # Добавляем вывод из предыдущего outputs 
-в файле .github/workflows/deploy.yml строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............
-в файле k8s-configs/app/deployment.yaml  строка image:cr.yandex/crpjdc............
+ ## 4. Добавляем вывод из предыдущих outputs 
+в файле .github/workflows/deploy.yml в строки REPOSITORY_ID:crpjd.............. и CLUSTER_ID:cat105............  
+в файле k8s-configs/app/deployment.yaml  в строкау image:cr.yandex/crpjdc............  
  
-5. # В Actions добавляем секреты
 
-YC_FOLDER_ID
-YC_SERVICE_ACCOUNT_KEY
+ ## 5. В Actions добавляем секреты
+YC_FOLDER_ID  
+YC_SERVICE_ACCOUNT_KEY  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/06.png) 
 
-6. # Делаем пуш в гит и ждем завершения пайплайна
+
+ ## 6. Делаем пуш в гит и ждем завершения пайплайна
+```
 git add .
 git commit -m "CI/CD"
 git push origin main
+```
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png) 
 
-7. # Запускаем скрипт deploy-all.sh
-bash deploy-all.sh
+ ## 7. Запускаем скрипт deploy-all.sh
+bash deploy-all.sh  
 
-8. # Добавляем полученный Внешний IP в /etc/hosts
-<IP> app.local grafana.local
+ ## 8. Добавляем полученный Внешний IP в /etc/hosts
+<IP> app.local grafana.local  
 
-9. # Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
-Меняем название заголовка в строке <<h1>🚀 Приложение работает! V2</h1> у файла index.html
-Пушим изменения, ждем запуска деплоя и проверяем изменения в приложении app.local
-git add .
-git commit -m "html v2"
-git push origin main
+ ## 9. Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
+Меняем название заголовка в строке:  
+<h1>🚀 Приложение работает! V2</h1> у файла index.html  
 
-10. # Проверям работу метрик
-kubectl get pods -n monitoring
-helm list -n monitoring
-kubectl get svc -n monitoring
+Пушим изменения, ждем запуска деплоя и проверяем изменения в приложении app.local  
+git add .  
+git commit -m "html v2"  
+git push origin main  
 
-
-Далее заходим в админку grafana.local и проверяем дашборд 
-Dashboards > Kubernetes / Compute Resources / Cluster
-
-11. # Полное удаление одним действием
-bash destroy.sh
+ ## 10. Проверям работу метрик
+kubectl get pods -n monitoring  
+helm list -n monitoring  
+kubectl get svc -n monitoring  
 
 
+Далее заходим в админку grafana.local и проверяем дашборд  
+Dashboards > Kubernetes / Compute Resources / Cluster  
 
-
-
-
+11. ## Полное удаление одним действием
+bash destroy.sh  
 
 
 
 
 
-## 🗑️ Полное удаление инфраструктуры
-
-Поскольку Yandex Cloud запрещает удаление непустых реестров, а Terraform управляет только инфраструктурой (не содержимым реестра), процесс удаления разделён на два этапа:
-
-1.  Очистка реестра от образов через `yc` CLI.
-2.  Удаление инфраструктуры через `terraform destroy`.
-
-Для автоматизации используйте скрипт:
-```bash
-cd infrastructure/main
-./destroy.sh
-
-
-![](https://github.com/Reqroot-pro/devops-netology/blob//main/cloud/15.1/images/01.png)
 
 
 
