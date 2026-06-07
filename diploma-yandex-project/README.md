@@ -171,8 +171,10 @@ terraform init \
   -backend-config="key=infra/terraform.tfstate" \
   -backend-config="access_key=YCAJE..........." \
   -backend-config="secret_key=YCNBN.................."
-```
+
 terraform apply -auto-approve
+```
+
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/03.png)  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/04.png)  
@@ -187,7 +189,9 @@ yc managed-kubernetes cluster get-credentials \
 ```
 
 Проверяем статус нод  
-kubectl get nodes  
+```
+kubectl get nodes
+```
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/05.png)  
 
@@ -215,11 +219,12 @@ git push origin main
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png)  
 
 ## 7. Запускаем скрипт deploy-all.sh
-cd diploma-yandex-project/  
-bash deploy-all.sh  
+```
+cd diploma-yandex-project/
+bash deploy-all.sh
+```
 
-## 8. Добавляем полученный Внешний IP в /etc/hosts
-<IP> app.local grafana.local  
+## 8. Проверяем доступность приложения и мониторинга по порту 80
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/09.png)  
@@ -235,20 +240,28 @@ git commit -m "html v2"
 git push origin main  
 ```
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/10.png)  
-![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/11.png) 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/11.png)  
 
 
 ## 10. Проверям работу метрик
-kubectl get pods -n monitoring  
-helm list -n monitoring  
-kubectl get svc -n monitoring  
+```
+kubectl get pods -n monitoring
+helm list -n monitoring
+kubectl get svc -n monitoring
+```
 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/12.png)  
 
-Далее заходим в админку grafana.local и проверяем дашборд  
+Далее заходим в админку grafana и проверяем дашборд  
 Dashboards > Kubernetes / Compute Resources / Cluster  
 
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/13.png)  
+
 11. ## Полное удаление одним действием
-bash destroy.sh  
+```
+cd diploma-yandex-project/
+bash destroy.sh
+```
 
 
 

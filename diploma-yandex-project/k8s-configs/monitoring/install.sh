@@ -3,7 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "Установка/обновление мониторинга..."
+echo "Установка/обновление мониторинга"
 
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
@@ -15,5 +15,4 @@ helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
   -f "$SCRIPT_DIR/values.yaml" \
   --wait --timeout 10m
 
-echo "Мониторинг установлен!"
-echo "Grafana: http://grafana.local (admin/admin123)"
+echo "[monitoring] Установлен"

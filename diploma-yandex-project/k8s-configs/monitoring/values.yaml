@@ -15,17 +15,17 @@ grafana:
     
     # Аннотации для Яндекс.Облака + Nginx
     annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
       nginx.ingress.kubernetes.io/ssl-redirect: "false"  # ← Отключаем HTTPS-редирект для демо
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      nginx.ingress.kubernetes.io/use-regex: "true"
     
     # Хосты
-    hosts:
-      - grafana.local
+    hosts: []
     
     # Путь
-    path: /
-    pathType: Prefix
+    path: /grafana(/|$)(.*)
+    pathType: ImplementationSpecific
     
     # Явно указываем порт сервиса
     servicePort: 80
