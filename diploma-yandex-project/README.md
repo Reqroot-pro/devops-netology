@@ -222,16 +222,21 @@ bash deploy-all.sh
 <IP> app.local grafana.local  
 
 ![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/08.png)  
-![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/07.png)  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/09.png)  
 
 ## 9. Проверяем автоматический деплой приложения в Kubernetes при изменении кода (CI/CD)
 Меняем название заголовка в строке:  
 <h1>🚀 Приложение работает!  V2</h1> у файла index.html  
 
 Пушим изменения, ждем запуска деплоя и проверяем изменения в приложении app.local  
+```
 git add .  
 git commit -m "html v2"  
 git push origin main  
+```
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/10.png)  
+![](https://github.com/Reqroot-pro/devops-netology/blob/main/diploma-yandex-project/images/11.png) 
+
 
 ## 10. Проверям работу метрик
 kubectl get pods -n monitoring  
